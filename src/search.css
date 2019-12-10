@@ -1,0 +1,8 @@
+.suggestion:hover {
+    display: block;
+    background-color: rgb(213, 216, 189);
+    z-index: +1;
+  }
+.suggestion{
+  z-index: +1;
+}

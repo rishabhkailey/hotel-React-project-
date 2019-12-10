@@ -1,0 +1,58 @@
+navbar
+left ch logo right ch login/sign up middle ch search
+
+locations/autocomplete for search (auto complete) returns similar locations names with their type e.g ai for airport and so on , it also return longitude and latitude of that location then we have to calculate bounded box and then list by map for list of all hotels in that location
+to get map use get static map and fill longitude and latitude and use zoom 12
+
+use to find bbox from long, latitude
+http://bboxfinder.com/#51.441811,-0.569229,51.496347,-0.316887
+
+roughly for testing area (heathrow airport) long = -0.452693, latitude = 51.4713
+
+latitude y axis
+longitude x axis
+
+for bbox bottom_left , top_right (first latitude then longitude) <- for api website da format alag a
+
+bbox of required area around long,latitude (found from above website)
+51.441811 , 51.496347 ,  -0.316887 , -0.569229
+
+approx
+for bbox of required area 
+latitude = +- 0.030268
+longitude = +- 0.130171
+
+so bbox = 51.441032,51.501568,-0.582864,-0.322522
+
+
+searched_list ch obj return hunda 
+
+object.count
+object.result(is ch array of rooms)
+
+ik room ch following properties that we will use
+    accommodation_type_name (type e.g hotel)
+    address
+    available_rooms
+    breakfast_review_score
+        rating
+        review_count
+
+    facilities_review_score
+        rating
+        rating_message
+        review_count
+
+    review_score(rating)
+    review_score_word(good)
+    
+
+    city
+    country_trans(country translated)
+    class
+
+    hotel_facilities(string of codes seprated by , use get_facility request request)
+
+    hotel_id
+    hotel_name
+    main_photo_url
