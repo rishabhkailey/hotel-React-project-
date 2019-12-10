@@ -1,5 +1,5 @@
 const key={
-    host: "enter host here",
+    host: "apidojo-booking-v1.p.rapidapi.com",
     key: "enter key here"
 }
 

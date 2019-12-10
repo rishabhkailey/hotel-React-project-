@@ -28,9 +28,12 @@ class NavBar extends Component {
 		event.preventDefault();
 		console.log('submit');
 		getSuggestions(this.state.inputValue)
-		.then((bbox)=>{
-			this.props.bbox(bbox,'');
-		})
+			.then((bbox) => {
+				this.props.bbox(bbox, '');
+			})
+			.then(() => {
+				this.setState({ redirect: true });// after setting bbox
+			})
 	}
 	onClick(obj) {
 		this.setState({ show_suggestion: false, inputValue: obj.name, suggestions: [] });
@@ -45,10 +48,10 @@ class NavBar extends Component {
 	}
 	onChange(event) {
 		let value = event.target.value;
-		
+
 		this.setState({ inputValue: value });
 
-		if (parseInt(value.length) < 4) {
+		if (parseInt(value.length) != -1) {
 			this.setState({ show_suggestion: false, suggestion: [] })
 			return;
 		}
@@ -61,8 +64,8 @@ class NavBar extends Component {
 
 		getSuggestions(value)
 			.then((suggestions) => {
-				if(suggestions)
-				this.setState({ show_suggestion: true, suggestions: suggestions, suggestion_position: { top: top, left: left } });
+				if (suggestions)
+					this.setState({ show_suggestion: true, suggestions: suggestions, suggestion_position: { top: top, left: left } });
 			})
 	}
 

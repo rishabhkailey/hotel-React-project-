@@ -24,7 +24,7 @@ const getRooms = async (longitude, latitude, date) => {
     })
         .then(res => res.json())
         .then(res => {
-            if (res.message.localeCompare("Key doesn't exists") === 0) {
+            if (res.message && res.message.localeCompare("Key doesn't exists") === 0) {
                 console.log(res.message);
                 console.log("add api key in your project file api_calls/apiKey\nif you don't have key then get it from \nhttps://rapidapi.com/apidojo/api/booking")
                 return null;
@@ -35,7 +35,7 @@ const getRooms = async (longitude, latitude, date) => {
                 // resolution is not good so replace square60 with max500
                 let photo_url = res.main_photo_url;
                 var pos = photo_url.indexOf("square60");
-                photo_url = photo_url.substring(0, pos) + 'max500' + photo_url.substring(51);
+                photo_url = photo_url.substring(0, pos) + 'max500' + photo_url.substring(pos+8);
                 // console.log(photo_url);
                 return { type: res.accommodation_type_name, name: res.hotel_name, image: photo_url, address: res.address, city: res.city, country: res.country_trans }
             })

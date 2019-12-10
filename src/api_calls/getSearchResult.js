@@ -10,7 +10,7 @@ const getSearchResult = async (value) => {
     })
         .then((res) => res.json())
         .then(res => {
-            if (res.message.localeCompare("Key doesn't exists") === 0) {
+            if (res.message && res.message.localeCompare("Key doesn't exists") === 0) {
                 console.log(res.message);
                 console.log("add api key in your project file api_calls/apiKey\nif you don't have key then get it from \nhttps://rapidapi.com/apidojo/api/booking")
                 return null;
