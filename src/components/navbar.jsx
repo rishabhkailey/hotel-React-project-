@@ -86,13 +86,13 @@ class NavBar extends Component {
 			</div>
 		}
 		return <React.Fragment>
-			<Navbar bg="light" expand="lg">
-				<Navbar.Brand>React-Bootstrap</Navbar.Brand>{/*.Brand for site logo or name*/}
+			<Navbar bg="primary" expand="lg" className="navbar-dark">
+				<Navbar.Brand>Hotels</Navbar.Brand>{/*.Brand for site logo or name*/}
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Collapse id="basic-navbar-nav">{/*.Collapse for multiple nav inside*/}
+				<Navbar.Collapse id="basic-navbar-nav">{/*.Collapse for multiple nav inside when screens size is small*/}
 					<Nav className="mr-auto">
-						<Nav.Link href="#home">Home</Nav.Link>
-						<Nav.Link href="#link">Link</Nav.Link>
+						{/* <Nav.Link href="#home">Home</Nav.Link>  use brand as home*/}
+						<Nav.Link href="#Top">Top</Nav.Link>
 						<NavDropdown title="Dropdown" id="basic-nav-dropdown">
 							<NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
 							<NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -101,11 +101,16 @@ class NavBar extends Component {
 							<NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
 						</NavDropdown>
 					</Nav>
-					<Form inline className='col-6' onSubmit={this.handleSubmit}>
-						<FormControl type="text" placeholder="Search" className="col-11" value={this.state.inputValue} onChange={this.onChange} />
-						<Button variant="outline-success" className='col-1' type="submit"><img style={{ height: 'inherit', width: 'inherit' }} src='https://static.thenounproject.com/png/101791-200.png' /></Button>
+					<Form inline className='mr-auto col-7' id='basic-nav-dropdown' onSubmit={this.handleSubmit}>
+						<FormControl type="text" placeholder="Search" style={{borderTopRightRadius: "0px",borderBottomRightRadius: "0px"}} className="col-10" value={this.state.inputValue} onChange={this.onChange} />
+						{/* <FormControl type="submit" value="s" style={{borderTopLeftRadius: "0px",borderBottomLeftRadius: "0px"}} className="col-1" /> */}
+						<Button className='col-2' type="submit" style={{borderTopLeftRadius: "0px",borderBottomLeftRadius: "0px"}}>search</Button>
 					</Form>
 					{suggestion_list}{/* div tag with list*/}
+					<Nav className="mr-auto">
+						<Button variant="primary" className="">log in</Button>
+						<Button variant="primary" className="">orders</Button>
+					</Nav>
 				</Navbar.Collapse>
 			</Navbar>;
 			{/* {this.state.count=this.state.count+1} */}
