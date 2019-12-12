@@ -101,9 +101,8 @@ class NavBar extends Component {
 							<NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
 						</NavDropdown>
 					</Nav>
-					<Form inline className='mr-auto col-7' id='basic-nav-dropdown' onSubmit={this.handleSubmit}>
-						<FormControl type="text" placeholder="Search" style={{borderTopRightRadius: "0px",borderBottomRightRadius: "0px"}} className="col-10" value={this.state.inputValue} onChange={this.onChange} />
-						{/* <FormControl type="submit" value="s" style={{borderTopLeftRadius: "0px",borderBottomLeftRadius: "0px"}} className="col-1" /> */}
+					<Form inline className='mr-auto col-8' id='basic-nav-dropdown' onSubmit={this.handleSubmit}>
+						<FormControl type="text" placeholder="Search" className="col-10" value={this.state.inputValue} onChange={this.onChange} style={{borderTopRightRadius: "0px",borderBottomRightRadius: "0px"}}/>
 						<Button className='col-2' type="submit" style={{borderTopLeftRadius: "0px",borderBottomLeftRadius: "0px"}}>search</Button>
 					</Form>
 					{suggestion_list}{/* div tag with list*/}
@@ -112,7 +111,7 @@ class NavBar extends Component {
 						<Button variant="primary" className="">orders</Button>
 					</Nav>
 				</Navbar.Collapse>
-			</Navbar>;
+			</Navbar>
 			{/* {this.state.count=this.state.count+1} */}
 			{this.state.redirect && <Redirect to={`/search/`} />}
 		</React.Fragment>

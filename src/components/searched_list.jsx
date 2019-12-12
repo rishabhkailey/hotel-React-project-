@@ -83,7 +83,6 @@ class List extends Component {
             })
         }
         return <div className='container-fluid'>
-            <h5>{this.state.longitude},{this.state.latitude}</h5>
             <div className='row'>
                 {list}
             </div>
