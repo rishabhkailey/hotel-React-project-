@@ -45,7 +45,7 @@ class PopularLocations extends Component {
             <div className='row'>
                 {loc_tag}
             </div>
-			{this.state.redirectSearch && <Redirect to={`/search/`} />}
+			{this.state.redirectSearch && <Redirect to={`/search`} />}
         </div>
     }
 }

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import getRooms from '../api_calls/getRooms';
 import { throwStatement } from '@babel/types';
-
-
+import {Switch,Route,Link,useRouteMatch} from 'react-router-dom'
 class List extends Component {
     constructor(props) {
         super(props);
@@ -12,6 +11,7 @@ class List extends Component {
             longitude: -0.127634,
             latitude: 51.507391
         }
+        // console.log(useRouteMatch());
     }
     /*this method is now unsafe_componentWillRecieveProps , and in next update it will be removed so use getDerivedStateFromProps
      componentWillReceiveProps(new_props) // during update component life cycle =  componentWillReceiveProps -> shouldComponentUpdate ->(if true from scu) componentWillUpdate -> render -> componentDidUpdate
@@ -27,7 +27,7 @@ class List extends Component {
 
     static getDerivedStateFromProps(props, state) {
         console.log(props.search.bbox_list)
-        if ((!props.search.bbox_list) || (props.search.bbox_list[0].longitude === state.longitude)) {
+        if ((!props.search.bbox_list[0]) || (props.search.bbox_list[0].longitude === state.longitude)) {
             return null;
         }
         else {
@@ -41,6 +41,11 @@ class List extends Component {
     }
     componentDidUpdate() {
         console.log('component update');
+        if(this.state.update)
+        {
+            this.setState({update: false});
+            this.loadHotels();//fetch nal jo  changes ho rhe ne oh detect nhi krda
+        }
     }
     loadHotels() {
         console.log(this.props.search);
@@ -64,20 +69,23 @@ class List extends Component {
         //nhi thik eh sirf ik var hi chalda
     }
     render() {
-        if(this.state.update)
-        {
-            this.setState({update: false});
-            this.loadHotels();
-        }
+        // let { path, url } = useRouteMatch();// path used in Route , url used in link(matched)
+        let path = '/search';
+        let url = '/search';
         let list;
         if (this.state.show_list) {
             list = this.state.hotels.map((hotel, index) => {
                 return <div key={index} className="card col-md-3" style={{ width: "18rem" }}>
-                    <img src={hotel.image} className="card-img-top" style={{ width: '305px', height: '200px' }} alt="..." />
+                    <img src={hotel.image} className="card-img-top" style={{ height: '50%',objectFit:'cover' }} alt="..." />
                     <div className="card-body">
                         <h5 className="card-title">{hotel.name}</h5>
                         <p className="card-text">{hotel.address},{hotel.city},{hotel.country}</p>
-                        <a href="#" className="btn btn-primary">Go somewhere</a>
+                        <Link to={{
+                            pathname: `search/hotel/${hotel.id}`,
+                            state:{
+                                hotel:hotel
+                            }
+                        }} className="btn btn-primary" /* onClick={this.props.hotel(hotel)} */>Check</Link>
                     </div>
                 </div>
             })
@@ -86,6 +94,12 @@ class List extends Component {
             <div className='row'>
                 {list}
             </div>
+            {/* routing after /search no need of ReactRouter parent kol a */}
+            {/* <Switch>
+                <Route path={`/search/room`}>
+                    <Room />
+                </Route>
+            </Switch> */}
         </div>
         // return <h1>hello</h1>
     }

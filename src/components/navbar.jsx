@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
-import { Redirect, useHistory } from 'react-router-dom';
+import {Link, Redirect, useHistory } from 'react-router-dom';
 import '.././search.css';
 
 import getSuggestions from '../api_calls/getSuggestions'
@@ -87,7 +87,7 @@ class NavBar extends Component {
 		}
 		return <React.Fragment>
 			<Navbar bg="primary" expand="lg" className="navbar-dark">
-				<Navbar.Brand>Hotels</Navbar.Brand>{/*.Brand for site logo or name*/}
+				<Link to='/'><Navbar.Brand>Hotels</Navbar.Brand></Link>{/*.Brand for site logo or name*/}
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">{/*.Collapse for multiple nav inside when screens size is small*/}
 					<Nav className="mr-auto">

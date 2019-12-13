@@ -29,6 +29,9 @@ const getRooms = async (longitude, latitude, date) => {
                 console.log("add api key in your project file api_calls/apiKey\nif you don't have key then get it from \nhttps://rapidapi.com/apidojo/api/booking")
                 return null;
             }
+            if(res.message){
+                return null;
+            }
             console.log(res);
             let refined_result = res.result.map((res) => {
                 // res.main_photo_url = "http://r-ec.bstatic.com/xdata/images/hotel/square60/77897735.jpg?k=9bef4152fd76026ad7885fc95a2a48d04a5a6bb68a1eefa5e292a8429aa3845e&o=";
@@ -37,7 +40,7 @@ const getRooms = async (longitude, latitude, date) => {
                 var pos = photo_url.indexOf("square60");
                 photo_url = photo_url.substring(0, pos) + 'max500' + photo_url.substring(pos+8);
                 // console.log(photo_url);
-                return { type: res.accommodation_type_name, name: res.hotel_name, image: photo_url, address: res.address, city: res.city, country: res.country_trans }
+                return {id: res.hotel_id, name: res.hotel_name, type: res.accommodation_type_name, image: photo_url, address: res.address, city: res.city, country: res.country_trans }
             })
             return refined_result;
         })

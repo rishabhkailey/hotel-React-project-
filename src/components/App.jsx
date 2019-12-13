@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import NavBar from './navbar.jsx'
 import List from './searched_list.jsx'
 import Homepage from './Homepage'
-import { BrowserRouter, Route ,Switch } from "react-router-dom";
+import Hotel from './hotel'
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 class App extends Component {
     constructor() {
         super();
@@ -13,6 +14,7 @@ class App extends Component {
                 type: ''//exact(one bbox) or not (multiple bbox)
             }
         }
+        this.getHotelDetails = this.getHotelDetails.bind(this);
         this.getBboxList = this.getBboxList.bind(this);
     }
     getBboxList(list, type) {
@@ -20,8 +22,13 @@ class App extends Component {
         this.setState({ search: { show_search: true, bbox_list: list, type: type } });
         // this.props.history.push('/search');
     }
+    getHotelDetails(hotel)
+    {
+        console.log(hotel);
+        // this.setState({hotel: hotel});
+    }
     render() {
-        console.log('inside homepage render',this.state.search);
+        console.log('inside homepage render', this.state.search);
         //console.log(this.state.search.show_search && <List search={this.state.search} />);
         return <React.Fragment>
             {/* <NavBar bbox={this.getBboxList} />
@@ -30,11 +37,14 @@ class App extends Component {
             <BrowserRouter>
                 <NavBar bbox={this.getBboxList} />
                 <Switch>
+
+                    <Route path={`/search/hotel/:id`} component={Hotel} />
+
                     <Route path='/search'>
-                        <List search={this.state.search} />
+                        <List hotel={this.getHotelDetails   } search={this.state.search} />
                     </Route>
-                    <Route path='/'>
-                        <Homepage bbox={this.getBboxList}/>
+                    <Route exact path='/'>
+                        <Homepage bbox={this.getBboxList} />
                     </Route>
                 </Switch>
             </BrowserRouter>

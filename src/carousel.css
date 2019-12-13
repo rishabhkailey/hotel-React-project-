@@ -1,0 +1,10 @@
+.banner{
+    width:100%!important;
+    object-fit: cover;
+    object-position: 50% 65%;
+}
+
+.hotel-images{
+    height: 300px;
+    margin: auto;
+}
