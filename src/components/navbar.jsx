@@ -51,7 +51,7 @@ class NavBar extends Component {
 
 		this.setState({ inputValue: value });
 
-		if (parseInt(value.length) != -1) {
+		if (true || (parseInt(value.length) <= 3)) {
 			this.setState({ show_suggestion: false, suggestion: [] })
 			return;
 		}

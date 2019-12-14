@@ -30,8 +30,8 @@ class PopularLocations extends Component {
         let loc_tag = null;
         console.log(this.state.redirectSearch && <Redirect to={`/search/`} />);
         if(this.state.show)
-            loc_tag = this.state.locations.map((loc)=>{
-                return <div className='col-md-3' onClick={()=>{this.onClick(loc)}}>
+            loc_tag = this.state.locations.map((loc,index)=>{
+                return <div key={index} className='col-md-3' onClick={()=>{this.onClick(loc)}}>
                     <div className='card'>
                         <img className='image' src={loc.photo} />
                         <h1 className='label'>{loc.name}</h1>

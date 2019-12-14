@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Carousel } from 'react-bootstrap';
 import '.././carousel.css';
+import getBannerImages from './../api_calls/getBannerImages'
 
 // import images from '../api_calls/getBannerImages'
 class SlideShow extends Component {
@@ -12,34 +13,25 @@ class SlideShow extends Component {
         }
     }
     componentDidMount() {
-        let fxn_arg;
-        let imageHeight = '300px';
-        let className = 'banner';
-        if (this.props.id)//hotel images
-        {
-            fxn_arg = this.props.id;
-            imageHeight = '100%'
-            className = 'hotel-images';
-        }
-        this.props.getImages(fxn_arg)
+        getBannerImages()
             .then((res) => {
-                this.setState({ images: res, className, fetched: true });
+                this.setState({ images: res, fetched: true });
             })
-        // console.log(this.state.images);
     }
     render() {
         let items;
         if (this.state.fetched)
             items = this.state.images.map((img, index) => {
                 return <Carousel.Item key={index}>
-                    <img className={`d-block ${this.state.className}`} style={{ objectFit: 'cover', objectPosition: '50% 65%' }} height='300px' src={img.src} alt='slide' />
+                    <img className={`d-block banner`} style={{ objectFit: 'cover', objectPosition: '50% 65%' }} height='300px' src={img.src} alt='slide' />
                     <Carousel.Caption>
                         <h3>{img.label}</h3>
                     </Carousel.Caption>
                 </Carousel.Item>
             })
         return <React.Fragment>
-            {this.state.fetched && <Carousel style={{ padding: "5px", backgroundColor: "#d7d7d7" }}>
+            {this.state.fetched && <Carousel style={{ backgroundImage: 'linear-gradient(90deg, #c5c5c5, transparent,#c5c5c5)',
+    borderRadius: '6px' ,padding: "5px", backgroundColor: "white" }}>
                 {items}
             </Carousel>}
         </React.Fragment>

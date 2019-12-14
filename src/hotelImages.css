@@ -1,0 +1,12 @@
+.film{
+    padding: 5px;
+    height: 90px;
+    width: 90px;
+    object-fit: cover;
+    transition: height .1s,width .1s;
+  }
+  .film:hover{
+    height: 85px;
+    width: 85px;
+    opacity: .8;
+  }
