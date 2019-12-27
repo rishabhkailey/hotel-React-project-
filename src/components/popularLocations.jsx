@@ -15,12 +15,18 @@ class PopularLocations extends Component {
         })
     }
     onClick(obj) {
+        console.log('on click on pl')
+        // this.props.history.push('/search');
 		let bbox = [obj];
 		for (let x in obj) {
 			console.log(x);
-		}
-		this.props.bbox(bbox, 'exact');
-		this.setState({ redirectSearch: true });
+        }
+        this.props.history.push({
+            pathname: '/search',
+            state: {bbox: [obj]}
+        })
+        // this.props.bbox(bbox, 'exact');
+        // this.setState({ redirectSearch: true });
 	}
     componentDidMount(){
 
@@ -28,10 +34,10 @@ class PopularLocations extends Component {
     render() {
         // console.log(this.state.locations);
         let loc_tag = null;
-        console.log(this.state.redirectSearch && <Redirect to={`/search/`} />);
+        // console.log(this.state.redirectSearch && <Redirect to={`/search/`} />);
         if(this.state.show)
             loc_tag = this.state.locations.map((loc,index)=>{
-                return <div key={index} className='col-md-3' onClick={()=>{this.onClick(loc)}}>
+                return <div key={index} className='col' onClick={()=>{this.onClick(loc)}}>
                     <div className='card'>
                         <img className='image' src={loc.photo} />
                         <h1 className='label'>{loc.name}</h1>
@@ -45,7 +51,7 @@ class PopularLocations extends Component {
             <div className='row'>
                 {loc_tag}
             </div>
-			{this.state.redirectSearch && <Redirect to={`/search`} />}
+			{/* {this.state.redirectSearch && <Redirect to={`/search`} />} */}
         </div>
     }
 }

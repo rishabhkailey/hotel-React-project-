@@ -8,7 +8,7 @@ class Homepage extends Component {
     render() {
         return <React.Fragment>
             <Carousal />
-            <PopularLocations bbox={this.props.bbox}/>
+            <PopularLocations history={this.props.history} bbox={this.props.bbox}/>
         </React.Fragment>
     }
 }

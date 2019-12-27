@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
-import {Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import '.././search.css';
 
 import getSuggestions from '../api_calls/getSuggestions'
-
 class NavBar extends Component {
 	constructor(props) {
 		super(props);
@@ -27,24 +26,28 @@ class NavBar extends Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		console.log('submit');
+		// this.props.history.push('/search');
 		getSuggestions(this.state.inputValue)
 			.then((bbox) => {
-				this.props.bbox(bbox, '');
-			})
-			.then(() => {
-				this.setState({ redirect: true });// after setting bbox
+				this.props.history.push({
+					pathname: '/search',
+					state: { bbox }
+				})
 			})
 	}
 	onClick(obj) {
+		// this.props.history.push('/search');
 		this.setState({ show_suggestion: false, inputValue: obj.name, suggestions: [] });
 		let bbox = [obj];
 		for (let x in obj) {
 			console.log(x);
 		}
-		this.props.bbox(bbox, 'exact');
-		this.setState({ redirect: true });
-		// let history = useHistory();
-		// history.push('/search');
+		this.props.history.push({
+			pathname: '/search',
+			state: {bbox}
+		})
+		// this.props.history.push('/search');
+		// this.setState({ redirect: true });
 	}
 	onChange(event) {
 		let value = event.target.value;
@@ -102,8 +105,8 @@ class NavBar extends Component {
 						</NavDropdown>
 					</Nav>
 					<Form inline className='mr-auto col-8' id='basic-nav-dropdown' onSubmit={this.handleSubmit}>
-						<FormControl type="text" placeholder="Search" className="col-10" value={this.state.inputValue} onChange={this.onChange} style={{borderTopRightRadius: "0px",borderBottomRightRadius: "0px"}}/>
-						<Button className='col-2' type="submit" style={{borderTopLeftRadius: "0px",borderBottomLeftRadius: "0px"}}>search</Button>
+						<FormControl type="text" placeholder="Search" className="col-10" value={this.state.inputValue} onChange={this.onChange} style={{ borderTopRightRadius: "0px", borderBottomRightRadius: "0px" }} />
+						<Button className='col-2' type="submit" style={{ borderTopLeftRadius: "0px", borderBottomLeftRadius: "0px" }}>search</Button>
 					</Form>
 					{suggestion_list}{/* div tag with list*/}
 					<Nav className="mr-auto">

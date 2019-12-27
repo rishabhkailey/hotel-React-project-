@@ -56,21 +56,20 @@ class Images extends Component {
       return false;
     })
       .map((x, index) => {
-        return <div key={index} className='col-2 film' style={{ overflow: 'hidden' ,paddingTop: '16.666%' }} onClick={() => { this.changeImage(x) }}>{/*for on hover size decrease else all images shift*/}
-          <img style={{position: 'absolute',top: '0px',left: '0px',width: '100%',height:'100%',objectFit:'cover'}} src={x} />
+        return <div key={index} onClick={() => { this.changeImage(x) }} className='film-frame'>{/*for on hover size decrease else all images shift*/}
+          <img className='film' src={x} />
         </div>
       });
-    return <div className='container-fluid' style={{border:'1px solid #dedede',backgroundColor:'#fffdf7'}}>
-      <div className='row' style={{ overflow: 'hidden' ,padding: '1%'}}>
-        <div className='col-8' style={{overflow: 'hidden',paddingTop: '66%',margin:'auto'}}>
-          <img src={this.state.mainImage} style={{position: 'absolute',top: '0px',left: '0px',width: '100%',height:'100%',objectFit:'cover'}} />
-        </div>
+    return <div className='container-fluid'>
+      <div style={{width: '100%',backgroundColor:'grey',height: '10px'}}></div>
+      <div className='row' style={{ overflow: 'hidden' }}>
+        <img className='main-image' src={this.state.mainImage} />
       </div>
 
       <div className='row'>
-        <div className='col-1 indicator'  onClick={this.moveLeft}><FontAwesomeIcon icon={faAngleLeft} size='' /></div>
-        <div className='col-10' style={{display: 'flex',overflow:'hidden',padding:'0'}}>{film}</div>
-        <div className='col-1 indicator' onClick={this.moveRight}><FontAwesomeIcon icon={faAngleRight} size='' /></div>
+        <div className='indicator' onClick={this.moveLeft}><FontAwesomeIcon icon={faAngleLeft} size='' /></div>
+        <div className='preview' >{film}</div>
+        <div className='indicator' onClick={this.moveRight}><FontAwesomeIcon icon={faAngleRight} size='' /></div>
       </div>
     </div>
 

@@ -1,12 +1,24 @@
-.film{
-    padding: 5px;
-    height: 90px;
-    width: 90px;
-    object-fit: cover;
-    transition: height .1s,width .1s;
-  }
-  .film:hover{
-    height: 85px;
-    width: 85px;
-    opacity: .8;
-  }
+/* this component is half of width 50vw and vw will be of full width so half the vw 
+same problem with orientation*/
+
+* {
+    box-sizing: border-box;
+}
+
+.film {
+    border: 2px solid white;
+}
+
+.film:hover {
+    border: 1px solid white;
+    opacity: .9;
+}
+
+.indicator {
+    background-image: linear-gradient(white, rgb(224, 224, 224), white);
+    padding-top: 30px;
+}
+
+.indicator:hover {
+    background-image: linear-gradient(white, rgb(202, 201, 201), white);
+}
