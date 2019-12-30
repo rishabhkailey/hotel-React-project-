@@ -54,9 +54,9 @@ class App extends Component {
                     <Route path='/search' exact component={List} />
                         {/* <List /> search={this.state.search}
                     </Route> */}
-                    <Route exact path='/'>
-                        <Homepage history={history} /> {/* bbox={this.getBboxList} */}
-                    </Route>
+                    <Route exact path='/' render={()=><Homepage history={history} />} />
+                        {/* <Homepage history={history} /> bbox={this.getBboxList}
+                    </Route> */}
                 </Switch>
             </Router>
 

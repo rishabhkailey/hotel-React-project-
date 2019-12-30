@@ -1,6 +1,6 @@
 const key = {
     host: "apidojo-booking-v1.p.rapidapi.com",
-    key: "enter key here"
+    key: "enter api key here"
 }
 
 export default key;

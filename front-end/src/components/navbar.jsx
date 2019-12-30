@@ -28,23 +28,23 @@ class NavBar extends Component {
 		console.log('submit');
 		// this.props.history.push('/search');
 		getSuggestions(this.state.inputValue)
-			.then((bbox) => {
+			.then((destination) => {
 				this.props.history.push({
 					pathname: '/search',
-					state: { bbox }
+					state: { destination }
 				})
 			})
 	}
 	onClick(obj) {
 		// this.props.history.push('/search');
 		this.setState({ show_suggestion: false, inputValue: obj.name, suggestions: [] });
-		let bbox = [obj];
+		let destination = [obj];
 		for (let x in obj) {
 			console.log(x);
 		}
 		this.props.history.push({
 			pathname: '/search',
-			state: {bbox}
+			state: {destination}
 		})
 		// this.props.history.push('/search');
 		// this.setState({ redirect: true });

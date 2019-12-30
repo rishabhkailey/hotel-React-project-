@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SearchFilter from './searchFilter';
 import getRooms from '../api_calls/getRooms';
 import { throwStatement } from '@babel/types';
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom'
@@ -6,14 +7,19 @@ import './../searchedList.css'
 class List extends Component {
     constructor(props) {
         super(props);
-        console.log('contructor');
-        console.log(this.props);
-        const{longitude,latitude} = this.props.location.state.bbox[0];
+        console.log('contructor', this.props);
+        // const{longitude,latitude} = this.props.location.state.bbox[0];
         this.state = {
             show_list: false,
-            longitude,
-            latitude
+            dest: null,
+            minPrice: 0,
+            maxPrice: 1000
         }
+        this.disableShowList = this.disableShowList.bind(this);
+        this.loadHotels = this.loadHotels.bind(this);
+    }
+    disableShowList() {
+        this.setState({ show_list: false })
     }
     /*this method is now unsafe_componentWillRecieveProps , and in next update it will be removed so use getDerivedStateFromProps
      componentWillReceiveProps(new_props) // during update component life cycle =  componentWillReceiveProps -> shouldComponentUpdate ->(if true from scu) componentWillUpdate -> render -> componentDidUpdate
@@ -27,57 +33,57 @@ class List extends Component {
     // static method so this keyword cannot be used so props and state are send as arguments
     // and to setState return new state obj , or null if don't want to update state 
 
-    // static getDerivedStateFromProps(props, state) {
-    //     // eh har var chalda after constructor
-    //     console.log(props.search)
-    //     if ((!props.search.bbox_list[0]) || (props.search.bbox_list[0].longitude === state.longitude)) {
-    //         return null;
-    //     }
-    //     else {
-    //         console.log('rerender');
-    //         return {
-    //             longitude: props.search.bbox_list[0].longitude,
-    //             latitude: props.search.bbox_list[0].latitude,
-    //             update: true
-    //         }
-    //     }
-    // }
+    static getDerivedStateFromProps(props, state) {
+        // eh har var chalda after constructor and without constructor when new props arrives(update) 
+        // not after setState
+
+        const dest = props.location.state.destination[0];
+        //if state.dest is null means first time then update state
+        // or if new props.dest_id is different then current state
+        if ((state.dest === null) || (state.dest.dest_id !== dest.dest_id)) {
+            console.log('rerender');
+            return {
+                dest: props.location.state.destination[0],
+                needUpdate: true
+            }
+        }
+        else
+            return null;
+    }
     componentDidUpdate() {
-        console.log('component update');
-        if (this.state.update) {
-            this.setState({ update: false });
-            this.loadHotels();//fetch nal jo  changes ho rhe ne oh detect nhi krda
+        console.log(`component update lalala , need update = ${this.state.needUpdate}`);
+        if (this.state.needUpdate) {
+            this.setState({ needUpdate: false });
+            this.loadHotels();//fetch nal jo changes ho rhe ne oh detect nhi krda
+            //when we search and are already on /search
         }
     }
-    loadHotels() {
-        // console.log(this.props.location);
-        // let longitude = -0.127634, latitude = 51.507391;
-        // if (false && this.props.location.search.bbox_list) {
-        //     longitude = this.state.longitude;//this.props.search.bbox_list[0].longitude;// -0.127634;
-        //     latitude = this.state.latitude;//this.props.search.bbox_list[0].latitude;// 51.507391;
-        // }
-        let {longitude,latitude} = this.state;
-        console.log(longitude, latitude);
+    loadHotels(filters) {
+        console.log(filters)
+        this.disableShowList();
+        console.log('loadHotels()');
+        const { dest } = this.state;
+        console.log(dest);
 
-        getRooms(longitude, latitude)
+        getRooms(dest)
             .then((list) => {
                 if (list) {
                     console.log(list);
-                    this.setState({ show_list: true, hotels: list });
+                    this.setState({ show_list: true, hotels: list ,loading: false});
                 }
             })
-        this.setState({ page_loaded: true });
+        // this.setState({ show_list: true, hotels: [] });
+        // this.setState({ page_loaded: true });
     }
     componentDidMount() {
-        console.log('inside componentdidmount + this.props.search');
+        console.log('inside componentdidmount');
         this.loadHotels();
-        //nhi thik eh sirf ik var hi chalda
+        //nhi thik a , eh sirf ik var hi chalda
     }
     render() {
         // let { path, url } = useRouteMatch();// path used in Route , url used in link(matched)
         // let path = '/search';
         // let url = '/search';
-        console.log(this.props.location);
 
         let list;
         if (this.state.show_list) {
@@ -87,30 +93,32 @@ class List extends Component {
                     state: {
                         hotel: x
                     }
-                }} style={{textDecoration:'none'}} className="row hotelLink" key = { index }>
-            <div className="col-3" style={{paddingTop: "25%",backgroundColor: "grey",border: "1px solid black",overflow: "hidden"}}>
-                <img style={{position: "absolute",top: "0px",left: "0px",width: "100%",height: "100%",objectFit: "cover"}} src={x.image} />
-            </div>
-            <div className="col-8" style={{ paddingLeft: "30px" }}>
-                <div className="row hotelHeading" style={{ fontSize: "3vw", fontWeight: "500" }}>
-                    {x.name}
-                </div>
-                <div className="row" style={{ fontSize: "2vw", fontWeight: "400" }}>
-                    {x.address + "," + x.city + "," + x.country}
-                </div>
-            </div>
-                  </Link >
+                }} style={{ textDecoration: 'none' }} className="row hotelLink" key={index}>
+                    <div className="col-3" style={{ paddingTop: "25%", backgroundColor: "grey", border: "1px solid black", overflow: "hidden" }}>
+                        <img style={{ position: "absolute", top: "0px", left: "0px", width: "100%", height: "100%", objectFit: "cover" }} src={x.image} />
+                    </div>
+                    <div className="col-8" style={{ paddingLeft: "30px" }}>
+                        <div className="row hotelHeading" style={{ fontSize: "3vw", fontWeight: "500" }}>
+                            {x.name}
+                        </div>
+                        <div className="row" style={{ fontSize: "2vw", fontWeight: "400" }}>
+                            {x.address + "," + x.city + "," + x.country}
+                        </div>
+                    </div>
+                </Link >
             })
-}
-return <div className='container-fluid'>{list}</div>;
-
-{/* routing after /search no need of ReactRouter parent kol a */ }
-{/* <Switch>
-                <Route path={`/search/room`}>
-                    <Room />
-                </Route>
-            </Switch> */}
-
+        }
+        else {
+            list = <h1 className='row'>Loading...</h1>
+        }
+        return <div className='container-fluid'>
+            <div className='row'>
+                <div className='col-2' style={{borderRight: '1px solid #878787'}}>
+                    <SearchFilter loadHotels={this.loadHotels} dest={this.state.dest} minPrice={this.state.minPrice} maxPrice={this.state.maxPrice} />
+                </div>
+                <div className='col-10'>{list}</div>
+            </div>
+        </div>;
     }
 }
 export default List;
