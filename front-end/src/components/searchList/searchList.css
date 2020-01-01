@@ -1,0 +1,37 @@
+.hotelLink {
+    padding: 1%;
+    border-bottom: 1px solid #878787;
+    text-decoration: none;
+    color: black;
+    background-color: rgb(252, 255, 233);
+}
+
+.hotelLink:hover .hotelHeading {
+    color: #007bff;
+}
+
+.hotelLink:hover {
+    color: black;
+    background-color: rgb(238, 241, 220);
+}
+
+
+/* .collapse-button {
+    display: none;
+}
+
+.collapse-filter-form {
+    display: block;
+}
+
+for small screens 
+@media (max-width: 920px) {
+    .collapse-button {
+        display: block;
+    }
+    .collapse-filter-form {
+        display: none;
+    }
+}
+
+*/
