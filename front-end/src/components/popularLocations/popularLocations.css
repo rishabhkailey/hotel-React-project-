@@ -1,41 +1,43 @@
 .image{
-    width: 255px;
-    height: 400px;
-    /* height: 100%;
-    width: auto; */
-    object-fit: cover;/* prevent image streching on setting width and height*/ 
+    width:100%;
+    height:100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    object-fit: cover;
     opacity: .8;
-    object-position: 50% 50%;/* x,y origin*/
     background-image: radial-gradient(black, white);/* center black , mid radius to end white */
-    transition: opacity .5s , width .5s , height .5s  , object-position .5s;
-    margin: auto;
+    transition: opacity .5s , width .5s , height .5s ;
 }
 .image:hover{
-    width: 267px;/*+5%*/
-    height: 420px;
-    /* height: 110%;
-    width: auto; */
+    height: 102%;
+    width: 102%;
     opacity: 1;
-    object-position: 52% 52%; /* +2.5% so image expands in all direction */
 }
-.label{
-    position: absolute;/* still relative to parent but will not interfere with other elements*/
-    top: 20%;
-    left: 50%;
-    color: white;
-    transform: translate(-50%, -50%);
-}
-.card{
-    position: relative; /* by default static not relative (for text-label on image */
-    margin: auto;
-    border-radius: 10px; 
-    height: 400px;
-    width: 255px;
+.card{ 
+    padding-top: 150%;
+    border-radius: 5px;
+    /* border: 1px solid black; */
+    position: relative;
     overflow: hidden;
 }
+.label{
+    color: white;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    top: 2%;
+    left: 0px;
+}
+
 .heading{
     margin: 2%;
     font-weight: 500;
     font-size: 20px;
     color: rgb(17, 17, 17);
+}
+
+* {
+    box-sizing: border-box;
 }

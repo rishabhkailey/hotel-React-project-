@@ -1,0 +1,41 @@
+.image{
+    width: 255px;
+    height: 400px;
+    /* height: 100%;
+    width: auto; */
+    object-fit: cover;/* prevent image streching on setting width and height*/ 
+    opacity: .8;
+    object-position: 50% 50%;/* x,y origin*/
+    background-image: radial-gradient(black, white);/* center black , mid radius to end white */
+    transition: opacity .5s , width .5s , height .5s  , object-position .5s;
+    margin: auto;
+}
+.image:hover{
+    width: 267px;/*+5%*/
+    height: 420px;
+    /* height: 110%;
+    width: auto; */
+    opacity: 1;
+    object-position: 52% 52%; /* +2.5% so image expands in all direction */
+}
+.label{
+    position: absolute;/* still relative to parent but will not interfere with other elements*/
+    top: 20%;
+    left: 50%;
+    color: white;
+    transform: translate(-50%, -50%);
+}
+.card{
+    position: relative; /* by default static not relative (for text-label on image */
+    margin: auto;
+    border-radius: 10px; 
+    height: 400px;
+    width: 255px;
+    overflow: hidden;
+}
+.heading{
+    margin: 2%;
+    font-weight: 500;
+    font-size: 2em;
+    color: rgb(17, 17, 17);
+}

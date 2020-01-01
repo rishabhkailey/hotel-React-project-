@@ -23,11 +23,14 @@ class SlideShow extends Component {
         if (this.state.fetched)
             items = this.state.images.map((img, index) => {
                 return <Carousel.Item key={index}>
-                    <img className={`d-block banner`} style={{ objectFit: 'cover', objectPosition: '50% 65%' }} height='300px' src={img.src} alt='slide' />
-                    <Carousel.Caption>
-                        <h3>{img.label}</h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
+                    <div className='row image-cover'>
+                        <img className='d-block banner' src={img.src} alt='slide' />
+                        <Carousel.Caption>
+                            <h3>{img.label}</h3>
+                        </Carousel.Caption>
+                    
+                    </div>
+                    </Carousel.Item>
             })
         return <React.Fragment>
             {this.state.fetched && <Carousel style={{ backgroundImage: 'linear-gradient(90deg, #c5c5c5, transparent,#c5c5c5)',
