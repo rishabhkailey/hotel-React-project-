@@ -29,17 +29,17 @@ class Login extends Component {
         if(pass.length<=6){
             this.setState({isValidPassword: false,isInvalidPassword: true,pwdMsg:'password should be of 6 or more characters'})
         }
-        else if(!/?=.*[A-Z]/.test(pass)){
+        else if(!/.*[A-Z]/.test(pass)){
             this.setState({isValidPassword: false,isInvalidPassword: true,pwdMsg:'password should contain atleast 1 uppercase character'})
         }
         else
-        if(!/?=.*[a-z]/.test(pass)){
+        if(!/.*[a-z]/.test(pass)){
             this.setState({isValidPassword: false,isInvalidPassword: true,pwdMsg:'password should contain atleast 1 lowercase character'})
         }
-        else if(!/?=.*[0-9]/.test(pass)){
+        else if(!/.*[0-9]/.test(pass)){
             this.setState({isValidPassword: false,isInvalidPassword: true,pwdMsg:'password should containt atleast 1 number'})
         }
-        else if(!/?=.[!@#\$%\^&]/.test(pass))
+        else if(!/.*[!@#\$%\^&]/.test(pass))
         {
             this.setState({isValidPassword: false,isInvalidPassword: true,pwdMsg:'password should containt atleast 1 special character'})
         }
