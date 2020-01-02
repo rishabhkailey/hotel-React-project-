@@ -3,6 +3,7 @@ import NavBar from './../navbar/navbar'
 import List from './../searchList/searchList'
 import Homepage from './../homepage/Homepage'
 import Hotel from './../hotel/hotel'
+import Login from './../login/login'
 import {Router, BrowserRouter, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 class App extends Component {
@@ -55,6 +56,8 @@ class App extends Component {
                         {/* <List /> search={this.state.search}
                     </Route> */}
                     <Route exact path='/' render={()=><Homepage history={history} />} />
+
+                    <Route path='/login' component={Login} />
                         {/* <Homepage history={history} /> bbox={this.getBboxList}
                     </Route> */}
                 </Switch>

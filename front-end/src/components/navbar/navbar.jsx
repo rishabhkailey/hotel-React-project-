@@ -110,7 +110,9 @@ class NavBar extends Component {
 					</Form>
 					{suggestion_list}{/* div tag with list*/}
 					<Nav className="mr-auto">
-						<Button variant="primary" className="">log in</Button>
+						<Link to='/login'>
+							<Button variant="primary" className="">log in</Button>
+						</Link>
 						<Button variant="primary" className="">bookings</Button>
 					</Nav>
 				</Navbar.Collapse>
