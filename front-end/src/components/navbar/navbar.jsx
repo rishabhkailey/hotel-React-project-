@@ -95,23 +95,23 @@ class NavBar extends Component {
 				<Navbar.Collapse id="basic-navbar-nav">{/*.Collapse for multiple nav inside when screens size is small*/}
 					<Nav className="mr-auto">
 						{/* <Nav.Link href="#home">Home</Nav.Link>  use brand as home*/}
-						<Nav.Link href="#Top">Top</Nav.Link>
-						<NavDropdown title="Dropdown" id="basic-nav-dropdown">
-							<NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-							<NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-							<NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+						{/* <Nav.Link href="#Top">Top</Nav.Link> */}
+						<NavDropdown title="Account" id="basic-nav-dropdown">
+							<NavDropdown.Item href="#action/3.1">bookings</NavDropdown.Item>
+							<NavDropdown.Item href="#action/3.2">account info</NavDropdown.Item>
+							<NavDropdown.Item href="#action/3.3">log out</NavDropdown.Item>
 							<NavDropdown.Divider />
-							<NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+							<NavDropdown.Item href="#action/3.4">wishlist</NavDropdown.Item>
 						</NavDropdown>
 					</Nav>
-					<Form inline className='mr-auto col-8' id='basic-nav-dropdown' onSubmit={this.handleSubmit}>
+					<Form inline className='mr-auto' style={{minWidth: '50%'}} id='basic-nav-dropdown' onSubmit={this.handleSubmit}>
 						<FormControl type="text" placeholder="Search" className="col-10" value={this.state.inputValue} onChange={this.onChange} style={{ borderTopRightRadius: "0px", borderBottomRightRadius: "0px" }} />
 						<Button className='col-2' type="submit" style={{ borderTopLeftRadius: "0px", borderBottomLeftRadius: "0px" }}>search</Button>
 					</Form>
 					{suggestion_list}{/* div tag with list*/}
 					<Nav className="mr-auto">
 						<Button variant="primary" className="">log in</Button>
-						<Button variant="primary" className="">orders</Button>
+						<Button variant="primary" className="">bookings</Button>
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>
