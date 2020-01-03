@@ -4,17 +4,13 @@
     text-decoration: none;
     background-color: white;
 }
-
 .hotelLink:hover .hotelHeading {
     color: #007bff;
 }
-
 .hotelLink:hover {
     color: black;
     background-color: rgb(238, 241, 220);
 }
-
-
 /* .collapse-button {
     display: none;
 }
