@@ -1,9 +1,9 @@
 .hotelLink {
     padding: 1%;
-    border-bottom: 1px solid #878787;
+    border: 1px solid #e8e5e5;
     text-decoration: none;
-    color: black;
-    background-color: rgb(252, 255, 233);
+    /* color: black; */
+    background-color: white;
 }
 
 .hotelLink:hover .hotelHeading {

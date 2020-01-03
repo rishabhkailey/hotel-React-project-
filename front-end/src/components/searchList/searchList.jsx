@@ -66,14 +66,14 @@ class List extends Component {
         const { dest } = this.state;
         console.log(dest);
 
-        // getRooms(dest)
-        //     .then((list) => {
-        //         if (list) {
-        //             console.log(list);
-        //             this.setState({ show_list: true, hotels: list ,loading: false});
-        //         }
-        //     })
-        this.setState({ show_list: true, hotels: [] });
+        getRooms(dest)
+            .then((list) => {
+                if (list) {
+                    // console.log(list);
+                    this.setState({ show_list: true, hotels: list, loading: false });
+                }
+            })
+        // this.setState({ show_list: true, hotels: [] });
         // this.setState({ page_loaded: true });
     }
     componentDidMount() {
@@ -87,6 +87,7 @@ class List extends Component {
         // let url = '/search';
 
         let list;
+        let {dest} = this.state;
         if (this.state.show_list) {
             list = this.state.hotels.map((x, index) => {
                 return <Link to={{
@@ -95,14 +96,14 @@ class List extends Component {
                         hotel: x
                     }
                 }} style={{ textDecoration: 'none' }} className="row hotelLink" key={index}>
-                    <div className="col-3" style={{ paddingTop: "25%", backgroundColor: "grey", border: "1px solid black", overflow: "hidden" }}>
+                    <div className="col-3" style={{ paddingTop: "25%", backgroundColor: "grey", overflow: "hidden" }}>
                         <img style={{ position: "absolute", top: "0px", left: "0px", width: "100%", height: "100%", objectFit: "cover" }} src={x.image} />
                     </div>
                     <div className="col-8" style={{ paddingLeft: "30px" }}>
-                        <div className="row hotelHeading" style={{ fontSize: "3vw", fontWeight: "500" }}>
+                        <h3 className="row hotelHeading">
                             {x.name}
-                        </div>
-                        <div className="row" style={{ fontSize: "2vw", fontWeight: "400" }}>
+                        </h3>
+                        <div className="row" style={{ fontSize: "16px", fontWeight: "" }}>
                             {x.address + "," + x.city + "," + x.country}
                         </div>
                     </div>
@@ -110,17 +111,23 @@ class List extends Component {
             })
         }
         else {
-            list = <h1 className='row'>Loading...</h1>
+            list = <h1 style={{textAlign: 'center',backgroundColor: 'white'}} className='row'>Loading...</h1>
         }
-        return <div className='container-fluid'>
+        return <div className='container-fluid' style={{backgroundColor: '#eceef1'}}>
             <div className='row'>
-                <div className='col-lg-2' style={{ borderRight: '1px solid #878787' }}>
+                <div className='col-lg-2' style={{ borderRight: '1px solid #e8e5e5' ,backgroundColor: 'white',marginTop: '6px',marginLeft: '6px'}}>
 
                     <SearchFilter loadHotels={this.loadHotels} dest={this.state.dest} minPrice={this.state.minPrice} maxPrice={this.state.maxPrice} />
 
                 </div>
-                <div className='col-lg-10'>{list}</div>
+                <div className='col-lg-9' style={{marginTop: '6px',marginLeft: '6px'}}>
+                    <div className='row' style={{backgroundColor: 'white',padding: '6px',marginBottom:'6px',fontSize:'16px',fontWeight:'500'}}>
+                        showing search result for : {dest.name}
+                    </div>
+                    {list}
+                </div>
             </div>
+
         </div>;
     }
 }
