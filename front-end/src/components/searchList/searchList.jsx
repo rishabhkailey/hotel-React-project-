@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchFilter from './../searchFilter/searchFilter';
 import getRooms from './../../api_calls/getRooms';
+import getSymbolFromCurrency from 'currency-symbol-map'
 import { throwStatement } from '@babel/types';
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom'
 import './searchList.css'
@@ -69,7 +70,7 @@ class List extends Component {
         getRooms(dest)
             .then((list) => {
                 if (list) {
-                    // console.log(list);
+                    console.log(list);
                     this.setState({ show_list: true, hotels: list, loading: false });
                 }
             })
@@ -87,7 +88,7 @@ class List extends Component {
         // let url = '/search';
 
         let list;
-        let {dest} = this.state;
+        let { dest } = this.state;
         if (this.state.show_list) {
             list = this.state.hotels.map((x, index) => {
                 return <Link to={{
@@ -100,28 +101,47 @@ class List extends Component {
                         <img style={{ position: "absolute", top: "0px", left: "0px", width: "100%", height: "100%", objectFit: "cover" }} src={x.image} />
                     </div>
                     <div className="col-8" style={{ paddingLeft: "30px" }}>
-                        <h3 className="row hotelHeading">
+                        <div className="row hotelHeading" style={{fontSize: '2.2vw',fontWeight:'600'}}>
                             {x.name}
-                        </h3>
-                        <div className="row" style={{ fontSize: "16px", fontWeight: "" }}>
+                        </div>
+                        <div className="row" style={{ fontSize: "1.5vw", fontWeight: "" }}>
                             {x.address + "," + x.city + "," + x.country}
+                        </div>
+                        <div className="col-lg-6 rating" style={{ paddingTop: '9px', paddingLeft: '0px' }}>
+                            <div className='row'>
+                                <div className='col-6'>
+                                    <div className='row'>
+                                        <span style={{ fontSize: '1.4vw' ,fontWeight:'500' }}>Rating</span>
+                                        <span style={{ fontWeight: '400',fontSize: '1.4vw', paddingLeft: '6px' }}>{x.review_word}</span>
+                                    </div>
+                                </div>
+                                <div className='col-6 progress' style={{ paddingLeft: '0px' }}>
+                                    <div className='progress-bar' style={{ width: ('' + x.review_score * 10 + '%') }}>{x.review_score}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='row pricing' style={{fontSize:'1.4vw', paddingTop: '8px' }}>
+                            <div className='price' style={{ fontSize: '1.4vw', fontWeight: '500' }}>
+                                {getSymbolFromCurrency(x.currency_code)}{x.price}
+                            </div>
+                            /week
                         </div>
                     </div>
                 </Link >
             })
         }
         else {
-            list = <h1 style={{textAlign: 'center',backgroundColor: 'white'}} className='row'>Loading...</h1>
+            list = <h1 style={{ textAlign: 'center', backgroundColor: 'white' }} className='row'>Loading...</h1>
         }
-        return <div className='container-fluid' style={{backgroundColor: '#eceef1'}}>
+        return <div className='container-fluid' style={{ backgroundColor: '#eceef1' }}>
             <div className='row'>
-                <div className='col-lg-2' style={{ borderRight: '1px solid #e8e5e5' ,backgroundColor: 'white',marginTop: '6px',marginLeft: '6px'}}>
+                <div className='col-lg-2' style={{ borderRight: '1px solid #e8e5e5', backgroundColor: 'white', marginTop: '6px', marginLeft: '6px' }}>
 
                     <SearchFilter loadHotels={this.loadHotels} dest={this.state.dest} minPrice={this.state.minPrice} maxPrice={this.state.maxPrice} />
 
                 </div>
-                <div className='col-lg-9' style={{marginTop: '6px',marginLeft: '6px'}}>
-                    <div className='row' style={{backgroundColor: 'white',padding: '6px',marginBottom:'6px',fontSize:'16px',fontWeight:'500'}}>
+                <div className='col-lg-9' style={{ marginTop: '6px', marginLeft: '6px' }}>
+                    <div className='row' style={{ backgroundColor: 'white', padding: '6px', marginBottom: '6px', fontSize: '16px', fontWeight: '500' }}>
                         showing search result for : {dest.name}
                     </div>
                     {list}
