@@ -31,7 +31,7 @@ const getRooms = async(dest, date) => {
             if (res.message) {
                 console.log(res.message);
                 return null;
-            }
+            }   
             console.log(res);
             let refined_result = res.result.map((res) => {
                 // res.main_photo_url = "http://r-ec.bstatic.com/xdata/images/hotel/square60/77897735.jpg?k=9bef4152fd76026ad7885fc95a2a48d04a5a6bb68a1eefa5e292a8429aa3845e&o=";
