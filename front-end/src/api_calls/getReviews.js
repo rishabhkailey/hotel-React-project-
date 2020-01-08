@@ -1,9 +1,11 @@
+import key from "./apiKey";
+
 const getReviews = async (hotelId)=>{
     let res = await fetch(`https://apidojo-booking-v1.p.rapidapi.com/properties/get-featured-reviews?languagecode=en-us&hotel_id=${hotelId}`, {
         "method": "GET",
         "headers": {
-            "x-rapidapi-host": "apidojo-booking-v1.p.rapidapi.com",
-            "x-rapidapi-key": "219cde6f8amsh4b6b05cb0f3a706p1710c4jsn76c771ae0cb7"
+            "x-rapidapi-host":  key['host'],
+            "x-rapidapi-key": key['key']
         }
     })
     .then(response => {
