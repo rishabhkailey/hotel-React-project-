@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import HotelImages from './../hotelImages/hotelImages'
 import getSymbolFromCurrency from 'currency-symbol-map'
+import HotelReviews from '../hotelReviews/hotelReviews';
 
 class Hotel extends Component {
     constructor(props) {
@@ -60,6 +61,7 @@ class Hotel extends Component {
                         </div>
 
                     </div>
+                    <HotelReviews hotel={hotel.id}/>
                 </div>
             </div>
         </div>
