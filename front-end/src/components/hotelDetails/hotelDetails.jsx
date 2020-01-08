@@ -6,12 +6,13 @@ class HotelDetails extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             des: '',
             des_style: {
                 height: '200px',
                 overflow: 'hidden'
-            }
+            },
+            button: 'Read more'
         }
     }
 
@@ -24,28 +25,28 @@ class HotelDetails extends Component {
         return <React.Fragment>
             <h3 > {hotel.name} </h3>
             <h5 > {hotel.city + ',' + hotel.country} </h5>
-            
-            
-            <div className='row pricing' style={{ padding: '8px' , marginTop: '25px'}}>
+
+
+            <div className='row pricing' style={{ padding: '8px', marginTop: '25px' }}>
                 <div className='price' style={{ fontSize: '2em', fontWeight: '500' }}>
                     {getSymbolFromCurrency(hotel.currency_code)}{hotel.price}
                     /week
                 </div>
 
             </div>
-            
-            
-            <div className='description' style={{ marginTop: '25px'}}>
+
+
+            <div className='description' style={{ marginTop: '25px' }}>
                 <div style={this.state.des_style}>
                     {this.state.des}
                 </div>
-                <div style={{margin: 'auto'}}>
-                    <button className='btn btn-primary'>show more</button>
+                <div style={{ margin: 'auto' }}>
+                    <button style={{ border:'0px',fontSize:'1.1em',fontWeight:'500',backgroundColor:'white',marginTop:'8px',color:'#007bff' }}>{this.state.button}</button>
                 </div>
             </div>
 
-            
-            <div className="col-lg-6 rating" style={{ paddingTop: '9px' ,marginTop: '25px'}}>
+
+            <div className="col-lg-6 rating" style={{ paddingTop: '9px', marginTop: '25px' }}>
                 <div className='row'>
                     <div className='col-6'>
                         <div className='row'>
