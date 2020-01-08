@@ -6,7 +6,13 @@ class HotelDetails extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { des: '' }
+        this.state = { 
+            des: '',
+            des_style: {
+                height: '200px',
+                overflow: 'hidden'
+            }
+        }
     }
 
     componentDidMount() {
@@ -30,7 +36,12 @@ class HotelDetails extends Component {
             
             
             <div className='description' style={{ marginTop: '25px'}}>
-                {this.state.des}
+                <div style={this.state.des_style}>
+                    {this.state.des}
+                </div>
+                <div style={{margin: 'auto'}}>
+                    <button className='btn btn-primary'>show more</button>
+                </div>
             </div>
 
             
