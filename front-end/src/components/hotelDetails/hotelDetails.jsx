@@ -14,6 +14,17 @@ class HotelDetails extends Component {
             },
             button: 'Read more'
         }
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(){
+        if(this.state.button === 'Read more')
+        {
+            this.setState({des_style:{},button:'Hide'})
+        }
+        else{
+            this.setState({des_style:{height:'200px',overflow:'hidden'},button:'Read more'})
+        }
     }
 
     componentDidMount() {
@@ -41,7 +52,7 @@ class HotelDetails extends Component {
                     {this.state.des}
                 </div>
                 <div style={{ margin: 'auto' }}>
-                    <button style={{ border:'0px',fontSize:'1.1em',fontWeight:'500',backgroundColor:'white',marginTop:'8px',color:'#007bff' }}>{this.state.button}</button>
+                    <button onClick={this.onClick} style={{ border: '0px', fontSize: '1.1em', fontWeight: '500', backgroundColor: 'white', marginTop: '8px', color: '#007bff' }}>{this.state.button}</button>
                 </div>
             </div>
 
