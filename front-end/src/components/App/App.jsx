@@ -42,13 +42,14 @@ class App extends Component {
         // console.log(this.state.history);
         // console.log('inside homepage render', this.state.search);
         //console.log(this.state.search.show_search && <List search={this.state.search} />);
+       
         const history = createBrowserHistory();
         return <React.Fragment>
             {/* <NavBar bbox={this.getBboxList} />
             <List search={this.state.search} /> */}
 
-            <Router history={history}>
-                <NavBar history={history}  /> {/*bbox={this.getBboxList} */}
+            <BrowserRouter>
+                <NavBar history={history} /> {/*bbox={this.getBboxList} */}
                 <Switch>
 
                     <Route path={`/search/hotel/:id`} component={Hotel} />
@@ -56,7 +57,7 @@ class App extends Component {
                     <Route path='/search' exact component={List} />
                         {/* <List /> search={this.state.search}
                     </Route> */}
-                    <Route exact path='/' render={()=><Homepage history={history} />} />
+                    <Route exact path='/' component={Homepage} />
 
                     <Route path='/login' component={Login} />
 
@@ -64,7 +65,7 @@ class App extends Component {
                         {/* <Homepage history={history} /> bbox={this.getBboxList}
                     </Route> */}
                 </Switch>
-            </Router>
+            </BrowserRouter>
 
         </React.Fragment>
     }

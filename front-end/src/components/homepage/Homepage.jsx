@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Carousal from './../carousel/carousel'
 import PopularLocations from './../popularLocations/popularLocations'
 class Homepage extends Component {
-    constructor() {
-        super();
+    componentDidMount(){
+        console.log(this.props);
     }
     render() {
         return <React.Fragment>
