@@ -1,0 +1,82 @@
+npm init
+install nodemode express mongoose body-parser
+--save kr k ta ki package.json ch a jaye ???
+
+
+folder layout
+		
+	src
+	|____
+	     dbconnection.js
+	     index.js
+	routes
+	      |___
+
+	models
+	      |___
+	
+	package-lock.json
+	"scripts":{
+		"start" : "nodemon src/index.js"	
+	}
+
+
+
+
+const express = require('express')
+const bodyparser = require('body-parser')
+
+const port = process.env.PORT || 5000;	port
+
+var app = express(); 
+
+app.use(bodyparser.json()) to handle json object in req
+
+
+routes  ch
+	require express();
+
+	router = express.router()
+
+
+	router.get()
+
+	module.export = router
+
+models ch
+	require('mongoose')
+
+	const userSchema = new mongoose.Schema({
+		userName:{
+			type: ,
+			unique: bool,
+			required: 
+		},
+		password:{
+
+		},
+		name: string,
+		age: number
+	})
+
+	use schema to create usermodel (+ add fxns)
+
+	const userModel = mongoose.model("name",schema,"namee")
+	1st = name of schema (required)
+	2nd = schema (not required)(structure jaruri nhi)
+	3rd = collection name (not required) (if not then it will take schema name + 's')
+	if  collection with same name doesn't exists it will create collection in mongodb atlas  
+
+	to add fxns	
+		req , callback 
+		usermodel.fxn = (req,callback)=>{
+			usermodel.find({email: req.email},callback)
+		}
+
+		routes ale te 
+		app.post('/login',(req,res)=>{
+			usermodel.fxn(req,(error,response)=>{
+
+			})
+		})
+
