@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
-const salt = bcrypt.genSaltSync(10)
+const {bcrypt,salt} = require('./../config/bcrypt-config')
 
 const userSchema = new mongoose.Schema({
     uname: {
@@ -28,6 +27,12 @@ userModel.addUser = (req,callback)=>{
     console.log(user);
     userModel.create(user,callback)
 }
+
+userModel.checkUser = (req,callback)=>{
+    console.log(`query = {email: ${req.session.email}}`)
+    userModel.find({email: req.session.email},callback)
+}
+
 userModel.findUser = (req,callback)=>{
     console.log(`query = {email : ${req.email}}`)
     userModel.find({email: req.body.email},callback)
