@@ -11,21 +11,25 @@ class Login extends Component {
             isInvalidEmail: null,
             isValidUname: null,
             isInvalidUname: null,
-            pwdMsg: ''
+            pwdMsg: '',
+            user:{},
+            signUpStatus: {
+                signUp: false,
+                error: false,
+                msg: ''
+            }
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.validateEmail = this.validateEmail.bind(this);
         this.validatePassword = this.validatePassword.bind(this);
         this.validateUname = this.validateUname.bind(this);
     }
-    validateUname(event){
-        if(event.target.value.length === 0)
-        {
-            this.setState({isValidUname: false,isInvalidUname: true})
+    validateUname(event) {
+        if (event.target.value.length === 0) {
+            this.setState({ isValidUname: false, isInvalidUname: true })
         }
-        else
-        {
-            this.setState({isValidUname: true,isInvalidEmail: false})
+        else {
+            this.setState({ isValidUname: true, isInvalidEmail: false })
         }
     }
     validateEmail(event) {
@@ -62,16 +66,45 @@ class Login extends Component {
     }
     onSubmit(event) {
         event.preventDefault();
-        console.log(event.target.email.value);
+        let user = {
+            uname: event.target.username.value,
+            email: event.target.email.value,
+            password: event.target.password.value
+        }
+        fetch('http://localhost:5000/users/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then((response) => {
+                if (!response.ok) throw new Error(response.status);
+                else return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                this.setState({ signUpStatus: data ,user: user})
+            })
+            .catch((error) => {
+                console.log('error: ' + error);
+            });
+        // console.log(event.target.email.value)
     }
     render() {
-        let { isValidEmail, isInvalidEmail, isValidPassword, isInvalidPassword ,isValidUname,isInvalidUname } = this.state;
+        let { isValidEmail, isInvalidEmail, isValidPassword, isInvalidPassword, isValidUname, isInvalidUname } = this.state;
         return <div className='container-fluid' style={{ backgroundColor: '#f9f9f9' }}>
+
             <div className='row' style={{ padding: '2%' }}>
                 <div style={{ margin: 'auto', fontSize: '30px', fontWeight: '400' }}>Create new account</div>
             </div>
             <Form noValidate onSubmit={this.onSubmit} className='col-lg-4' style={{ margin: 'auto', padding: '5%', backgroundColor: 'white', borderRadius: '2%', border: '1px solid #e8e5e5' }}>
-                <Form.Group controlId="username"  style={{ padding: '1%' }}>
+                {
+                    this.state.signUpStatus.error && <div className="alert alert-danger" style={{ textAlign: 'center' }} role="alert">
+                        {this.state.signUpStatus.msg}
+                    </div>
+                }
+                <Form.Group controlId="username" style={{ padding: '1%' }}>
                     <Form.Label>Username</Form.Label>
                     <Form.Control required isValid={isValidUname} isInvalid={isInvalidUname} onBlur={this.validateUname} type="text" placeholder="Username" name='uname' />
                     <Form.Control.Feedback type="invalid">

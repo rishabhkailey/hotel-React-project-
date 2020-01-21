@@ -17,11 +17,18 @@ class NavBar extends Component {
 			hover: false,
 			suggestion_position: {},
 			redirect: false,
-			count: 0
+			count: 0,
+			userAuth: false
 		};
 		this.onChange = this.onChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.logout = this.logout.bind(this)
 		console.log(getSuggestions);
+		console.log(this.props.user)
+	}
+	logout(){
+		this.props.logout()
+		this.setState({userAuth: false})
 	}
 	handleSubmit(event) {
 		event.preventDefault();
@@ -72,6 +79,7 @@ class NavBar extends Component {
 			})
 	}
 
+
 	render() {
 		let suggestion_list;
 		if (this.state.show_suggestion) {
@@ -110,9 +118,12 @@ class NavBar extends Component {
 					</Form>
 					{suggestion_list}{/* div tag with list*/}
 					<Nav className="mr-auto">
-						<Link to='/login'>
-							<Button variant="primary" className="">log in</Button>
-						</Link>
+						{
+
+							this.state.userAuth ? <Button onClick={this.logout} className='primary'>log out</Button> : <Link to='/login'>
+								<Button variant="primary" className="">log in</Button>
+							</Link>
+						}
 						<Button variant="primary" className="">bookings</Button>
 					</Nav>
 				</Navbar.Collapse>
@@ -120,6 +131,9 @@ class NavBar extends Component {
 			{/* {this.state.count=this.state.count+1} */}
 			{this.state.redirect && <Redirect to={`/search/`} />}
 		</React.Fragment>
+	}
+	static getDerivedStateFromProps(props,state){
+		return {userAuth: props.userAuth}
 	}
 }
 

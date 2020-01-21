@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyparser = require('body-parser')
 var users = require('./routes/users')
+var cors = require('cors')
 var protected = require('./routes/protected')
 const session = require('express-session');
 const {key,secret} = require('./config/session')
@@ -10,6 +11,9 @@ require('./dbConnection')
 const port = process.env.PORT || 5000;
 
 var app = express();
+
+// for development else new cookie will be generated every time (because browser doesn't send cookie if backend request is on different domain)
+// app.use(cors({ credentials: true, origin: true }))
 
 app.use(bodyparser.json())
 
@@ -25,6 +29,10 @@ app.use("*", (req, res, next) => {
     res.setHeader("Access-Control-Allow-Methods", "*")
     next();
 })
+
+
+app.use("/", express.static('static'))
+app.use("/home", express.static('static'))
 
 // check user is logged in or not
 const checkUser = (req,res,next)=>{
@@ -52,7 +60,10 @@ const checkUser = (req,res,next)=>{
 app.use('/users',users)
 
 // check user will be callback fxn of every /protected request
-app.use('/protected',checkUser,protected)
+app.use('/protected',(req,res,next)=>{
+    console.log('inside callback',req.sessionID,req.session.email)
+    next();
+},checkUser,protected) 
 
 app.get('/',(req,res)=>{
     res.send('welcome')

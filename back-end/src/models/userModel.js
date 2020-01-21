@@ -34,7 +34,7 @@ userModel.checkUser = (req,callback)=>{
 }
 
 userModel.findUser = (req,callback)=>{
-    console.log(`query = {email : ${req.email}}`)
+    console.log(`query = {email : ${req.body.email}}`)
     userModel.find({email: req.body.email},callback)
 }
 
