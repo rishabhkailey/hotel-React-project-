@@ -24,18 +24,28 @@ class NavBar extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.logout = this.logout.bind(this)
 		console.log(getSuggestions);
-		console.log(this.props.user)
+		console.log(this.props)
 	}
-	logout(){
-		this.props.logout()
-		this.setState({userAuth: false})
-	}
+	logout() {
+		fetch('http://localhost:5000/users/logout', {
+			method: 'POST'
+		})
+			.then((response) => {
+				if (!response.ok) throw new Error(response.status);
+				else return response.json();
+			})
+			.then((res)=>{
+				this.props.logout()
+				this.setState({ userAuth: false })
+			})
+		}
 	handleSubmit(event) {
 		event.preventDefault();
 		console.log('submit');
 		// this.props.history.push('/search');
 		getSuggestions(this.state.inputValue)
 			.then((destination) => {
+				// console.log(destination)
 				this.props.history.push({
 					pathname: '/search',
 					state: { destination }
@@ -51,7 +61,7 @@ class NavBar extends Component {
 		}
 		this.props.history.push({
 			pathname: '/search',
-			state: {destination}
+			state: { destination }
 		})
 		// this.props.history.push('/search');
 		// this.setState({ redirect: true });
@@ -112,7 +122,7 @@ class NavBar extends Component {
 							<NavDropdown.Item href="#action/3.4">wishlist</NavDropdown.Item>
 						</NavDropdown>
 					</Nav>
-					<Form inline className='mr-auto' style={{minWidth: '50%'}} id='basic-nav-dropdown' onSubmit={this.handleSubmit}>
+					<Form inline className='mr-auto' style={{ minWidth: '50%' }} id='basic-nav-dropdown' onSubmit={this.handleSubmit}>
 						<FormControl type="text" placeholder="Search" className="col-10" value={this.state.inputValue} onChange={this.onChange} style={{ borderTopRightRadius: "0px", borderBottomRightRadius: "0px" }} />
 						<Button className='col-2' type="submit" style={{ borderTopLeftRadius: "0px", borderBottomLeftRadius: "0px" }}>search</Button>
 					</Form>
@@ -132,8 +142,8 @@ class NavBar extends Component {
 			{this.state.redirect && <Redirect to={`/search/`} />}
 		</React.Fragment>
 	}
-	static getDerivedStateFromProps(props,state){
-		return {userAuth: props.userAuth}
+	static getDerivedStateFromProps(props, state) {
+		return { userAuth: props.userAuth }
 	}
 }
 

@@ -52,20 +52,21 @@ class App extends Component {
         // console.log(this.state.history);
         // console.log('inside homepage render', this.state.search);
         //console.log(this.state.search.show_search && <List search={this.state.search} />);
-       console.log(this.state.userAuth)
-        const history = createBrowserHistory();
+    //    console.log(this.state.userAuth)
+        // const history = createBrowserHistory();
         // let props = this.props
         return <React.Fragment>
             {/* <NavBar bbox={this.getBboxList} />
             <List search={this.state.search} /> */}
 
             <BrowserRouter>
-                <NavBar logout={this.logout} userAuth={this.state.userAuth} history={history} /> {/*bbox={this.getBboxList} */}
+                <Route component = {props => <NavBar logout={this.logout} userAuth={this.state.userAuth} {...props}/> } /> {/*bbox={this.getBboxList} */}
                 <Switch>
+                    
+                    <Route exact path='/search' component={List} />
 
-                    <Route path={`/search/hotel/:id`} component={Hotel} />
+                    <Route exact path={`/search/hotel/:id`} component={Hotel} />
 
-                    <Route path='/search' exact component={List} />
                         {/* <List /> search={this.state.search}
                     </Route> */}
                     <Route exact path='/' component={Homepage} />

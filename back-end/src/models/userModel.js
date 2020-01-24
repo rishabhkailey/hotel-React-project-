@@ -24,7 +24,7 @@ userModel.addUser = (req,callback)=>{
     var user = req.body;
     user.password = bcrypt.hashSync(user.password, salt) 
     
-    console.log(user);
+    console.log(user)
     userModel.create(user,callback)
 }
 

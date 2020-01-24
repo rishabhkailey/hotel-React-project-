@@ -34,6 +34,12 @@ router.post('/login',(req,res)=>{
   
 })
 
+router.post('/logout',(req,res)=>{
+    req.session.email = null;
+    console.log('session after logout',req.session)
+    res.send({msg: 'done'})
+})
+
 router.post('/signup',(req,res)=>{
     userModel.findUser(req,(error,response)=>{
         if(error)

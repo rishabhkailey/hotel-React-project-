@@ -10,6 +10,38 @@ class Hotel extends Component {
             id: this.props.match.params.id,
             hotel: this.props.location.state.hotel
         }
+        this.wishList = this.wishList.bind(this)
+        this.bookHotel = this.bookHotel.bind(this)
+    }
+    
+    wishList() {
+        fetch('http://localhost:5000/protected/addWishlist', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.hotel)
+        })
+            .then((response) => {
+                if (!response.ok) throw new Error(response.status);
+                else return response.json();
+            })
+            .catch((err)=>{console.log(err)})
+    }
+
+    bookHotel() {
+        fetch('http://localhost:5000/protected/bookHotel', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.hotel)
+        })
+            .then((response) => {
+                if (!response.ok) throw new Error(response.status);
+                else return response.json();
+            })
+            .catch((err)=>{console.log(err)})
     }
     render() {
         // if(this.props.match)
@@ -29,7 +61,7 @@ class Hotel extends Component {
                             </button>
                         </div>
                         <div className='col-6'>
-                            <button style={{ width: "80%", marginLeft: '10%', fontSize: '24px', fontWeight: '400' }} className='btn btn-primary'>
+                            <button onClick={this.wishList} style={{ width: "80%", marginLeft: '10%', fontSize: '24px', fontWeight: '400' }} className='btn btn-primary'>
                                 whishlist
                             </button>
                         </div>
@@ -37,7 +69,7 @@ class Hotel extends Component {
                 </div>
                 <div className='col-sm-6' >
                     <HotelDetails hotel={hotel} />
-                    <HotelReviews hotel={hotel.id}/>
+                    <HotelReviews hotel={hotel.id} />
                 </div>
             </div>
         </div>
