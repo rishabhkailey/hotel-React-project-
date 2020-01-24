@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import NavBar from './../navbar/navbar'
-import List from './../searchList/searchList'
+import Search from './../search/search'
 import Homepage from './../homepage/Homepage'
 import Hotel from './../hotel/hotel'
 import Login from './../login/login'
 import Signup from './../signup/signup'
+import SimpleList from '../list/List'
+import BookingsWishlist from './../bookingsAndWishlist/BookingsWishlist'
 import {Router, BrowserRouter, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { Button } from 'react-bootstrap';
+import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 class App extends Component {
     constructor(props) {
         super(props);
@@ -62,22 +65,28 @@ class App extends Component {
             <BrowserRouter>
                 <Route component = {props => <NavBar logout={this.logout} userAuth={this.state.userAuth} {...props}/> } /> {/*bbox={this.getBboxList} */}
                 <Switch>
+                
+                    <Route exact path='/wishlist'  component={() => <BookingsWishlist type='WishList' auth={this.state.auth} />} />
                     
-                    <Route exact path='/search' component={List} />
+                    <Route exact path='/bookings'  component={() => <BookingsWishlist type='Bookings' auth={this.state.auth} />} />
+                    
+                    <Route exact path='/search' component={Search} />
 
                     <Route exact path={`/search/hotel/:id`} component={Hotel} />
 
                         {/* <List /> search={this.state.search}
                     </Route> */}
-                    <Route exact path='/' component={Homepage} />
-
-             
+                     
+                    
                     <Route path='/login'  component={props => <Login authenticate={this.authenticate} {...props} />} />
                     
              
                     <Route path='/signup' authenticate={this.authenticate} component={Signup} />
                         {/* <Homepage history={history} /> bbox={this.getBboxList}
                     </Route> */}
+
+                    <Route exact path='/' component={Homepage} />
+                   
                 </Switch>
             </BrowserRouter>
 

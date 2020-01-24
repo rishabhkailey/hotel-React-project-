@@ -6,47 +6,43 @@ const bookingSchema = new mongoose.Schema({
         require: true,
         unique: true
     },
-    hotel_id:{
-        type: Number,
-        require: true
-    },
-    hotel_image:{
-        type: String,
-        require: true
-    },
-    address:{
-        type: String,
-        require: true
-    },
-    country:{
-        type:String,
-        require: true
-    },
-    price:{
-        type: Number,
-        require: true
-    },
-    currency_code: {
-        type:String,
-        require: true
-    }
+    bookings: []
 })
 
 const bookingModel = mongoose.model('booking',bookingSchema);
 
-bookings.add = (req,callback)=>{
-    var booking = req.body;
-    booking.email = req.session.email; 
-    console.log(booking)
+bookingModel.add = (req,callback)=> {
+    let email = req.session.email
 
-    userModel.create(booking,callback)
+    bookingModel.getBookings(req,(err,res)=>{
+        if(res){
+            let list = res[0].bookings
+            list.push(req.body)
+            bookingModel.findOneAndUpdate({email},{$set:{bookings:list}},callback)
+        }
+        if(err){
+            console.log(err)
+        }
+    })
 }
 
-bookings.getBookings = (req,callback)=>{
+bookingModel.createBooking = (req,callback)=>{
+
+    let email = req.session.email
+    let obj = {
+        email,
+        bookings: [req.body]
+    } 
+    console.log(obj)
+
+    bookingModel.create(obj,callback)
+}
+
+bookingModel.getBookings = (req,callback)=>{
 
     let email = req.session.email; 
 
-    userModel.find({email},callback)
+    bookingModel.find({email},callback)
 }
 
 module.exports = bookingModel;

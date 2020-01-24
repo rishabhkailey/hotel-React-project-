@@ -14,9 +14,9 @@ const wishlistModel = mongoose.model('wishlist',wishlistSchema);
 wishlistModel.add = (req,callback)=> {
     let email = req.session.email
 
-    wishlistModel.findOne({email},(err,res)=>{
+    wishlistModel.getWishList(req,(err,res)=>{
         if(res){
-            let list = res[0]
+            let list = res[0].wishlist
             list.push(req.body)
             wishlistModel.findOneAndUpdate({email},{$set:{wishlist:list}},callback)
         }
@@ -38,11 +38,11 @@ wishlistModel.createWishList = (req,callback)=>{
     wishlistModel.create(obj,callback)
 }
 
-wishlistModel.getwishlists = (req,callback)=>{
+wishlistModel.getWishList = (req,callback)=>{
 
     let email = req.session.email; 
 
-    wishlistModel.findOne({email},callback)
+    wishlistModel.find({email},callback)
 }
 
 module.exports = wishlistModel;

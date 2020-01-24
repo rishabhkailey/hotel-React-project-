@@ -45,12 +45,12 @@ router.post('/signup',(req,res)=>{
         if(error)
         {
             console.log('error')
-            console.log(`sign up failed`)
+            console.log(`signup failed`)
             res.json({error: true,signUp: false,msg: 'server error'})
         }
         if(response && response.length > 0)
         {
-            console.log(`sign up failed user already exists`)
+            console.log(`signup failed user already exists`)
             res.json({error: true,signUp: false,msg: 'user already exists'})
         }
         if(response && response.length === 0)
