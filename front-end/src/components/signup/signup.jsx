@@ -84,7 +84,19 @@ class Login extends Component {
             })
             .then((data) => {
                 console.log(data);
-                this.setState({ signUpStatus: data ,user: user})
+                if(data.signUp){
+                
+                    // this.props.authenticate(data);
+                
+
+                    this.props.history.push({
+                        pathname: '/'
+                    })
+                    
+                
+                }
+                else
+                    this.setState({ signUpStatus: data ,user: user})
             })
             .catch((error) => {
                 console.log('error: ' + error);

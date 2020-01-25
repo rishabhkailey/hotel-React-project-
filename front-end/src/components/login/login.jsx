@@ -61,8 +61,6 @@ class Login extends Component {
                     this.props.authenticate(data);
                     this.props.history.push({
                         pathname: '/'
-                        // ,
-                        // state: { user: {user: user,auth: true} }
                     })
                 }
                 else

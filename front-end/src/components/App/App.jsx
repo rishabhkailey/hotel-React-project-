@@ -81,7 +81,7 @@ class App extends Component {
                     <Route path='/login'  component={props => <Login authenticate={this.authenticate} {...props} />} />
                     
              
-                    <Route path='/signup' authenticate={this.authenticate} component={Signup} />
+                    <Route path='/signup' component={props=><Signup authenticate={this.authenticate} {...props}/>} />
                         {/* <Homepage history={history} /> bbox={this.getBboxList}
                     </Route> */}
 
