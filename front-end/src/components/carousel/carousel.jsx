@@ -26,7 +26,7 @@ class SlideShow extends Component {
                     <div className='row image-cover'>
                         <img className='d-block banner' src={img.src} alt='slide' />
                         <Carousel.Caption>
-                            <h3>{img.label}</h3>
+                            <h3 style={{backgroundImage:'linear-gradient(90deg,transparent,black, transparent)'}}>{img.label}</h3>
                         </Carousel.Caption>
                     
                     </div>

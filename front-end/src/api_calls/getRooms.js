@@ -10,9 +10,9 @@ const getRooms = async(dest, date) => {
         date.setDate(date.getDate() + 7);
         departure_date = '' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     }
-    console.log(arrival_date, departure_date);
+    // console.log(arrival_date, departure_date);
 
-    console.log(`req = https://apidojo-booking-v1.p.rapidapi.com/properties/list?price_filter_currencycode=USD&search_id=none&order_by=popularity&languagecode=en-us&search_type=${dest.dest_type}&offset=0&dest_ids=${dest.dest_id}&guest_qty=${2}&arrival_date=${arrival_date}&departure_date=${departure_date}&room_qty=${1}`);
+    // console.log(`req = https://apidojo-booking-v1.p.rapidapi.com/properties/list?price_filter_currencycode=USD&search_id=none&order_by=popularity&languagecode=en-us&search_type=${dest.dest_type}&offset=0&dest_ids=${dest.dest_id}&guest_qty=${2}&arrival_date=${arrival_date}&departure_date=${departure_date}&room_qty=${1}`);
 
     let res = await fetch(`https://apidojo-booking-v1.p.rapidapi.com/properties/list?price_filter_currencycode=USD&search_id=none&order_by=popularity&languagecode=en-us&search_type=${dest.dest_type}&offset=0&dest_ids=${dest.dest_id}&guest_qty=${2}&arrival_date=${arrival_date}&departure_date=${departure_date}&room_qty=${1}`, {
             "method": "GET",
@@ -34,12 +34,9 @@ const getRooms = async(dest, date) => {
             }   
             console.log(res);
             let refined_result = res.result.map((res) => {
-                // res.main_photo_url = "http://r-ec.bstatic.com/xdata/images/hotel/square60/77897735.jpg?k=9bef4152fd76026ad7885fc95a2a48d04a5a6bb68a1eefa5e292a8429aa3845e&o=";
-                // resolution is not good so replace square60 with max500
                 let photo_url = res.main_photo_url;
                 var pos = photo_url.indexOf("square60");
                 photo_url = photo_url.substring(0, pos) + 'max500' + photo_url.substring(pos + 8);
-                // console.log(photo_url);
                 return { id: res.hotel_id, name: res.hotel_name, type: res.accommodation_type_name, image: photo_url, address: res.address, city: res.city, country: res.country_trans,currency_code : res.currency_code,price: res.min_total_price,review_score: res.review_score,review_word: res.review_score_word }
                 //accomadation_type_name,hotel_name_trans,hotel_name,main_photo_url,country_trans,class,zip,location_score,address,id,min_total_price,currency_code,facility_review_score{review_count,review_word,rating},hotel_id,review_score(overall),review_score_word,review_nr,hotel_facilities,city,city_in_trans,
                 // order_by : popularity,distance,class_ascending,review_score,price

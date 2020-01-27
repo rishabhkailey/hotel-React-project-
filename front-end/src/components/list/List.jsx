@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import getSymbolFromCurrency from 'currency-symbol-map'
 import {Link} from 'react-router-dom'
+
 class simpleList extends Component {
     constructor(props){
         super(props)

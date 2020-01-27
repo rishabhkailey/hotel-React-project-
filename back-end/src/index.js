@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyparser = require('body-parser')
 var users = require('./routes/users')
-var cors = require('cors')
+var hotel = require('./routes/hotel')
 var protected = require('./routes/protected')
 const session = require('express-session');
 const {key,secret} = require('./config/session')
@@ -64,6 +64,8 @@ app.use('/protected',(req,res,next)=>{
     console.log('inside callback',req.sessionID,req.session.email)
     next();
 },checkUser,protected) 
+
+app.use('/hotel',hotel)
 
 app.get('/',(req,res)=>{
     res.send('welcome')

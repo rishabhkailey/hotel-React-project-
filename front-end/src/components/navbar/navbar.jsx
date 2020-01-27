@@ -13,7 +13,6 @@ class NavBar extends Component {
 			search_value: '',
 			show_suggestion: false,
 			suggestions: [],
-			options: ['rishabh', 'veer', 'singh', 'kailey', 'raman'],
 			hover: false,
 			suggestion_position: {},
 			redirect: false,
@@ -53,7 +52,7 @@ class NavBar extends Component {
 			})
 	}
 	onClick(obj) {
-		// this.props.history.push('/search');
+		this.props.history.push('/search');
 		this.setState({ show_suggestion: false, inputValue: obj.name, suggestions: [] });
 		let destination = [obj];
 		for (let x in obj) {
@@ -63,8 +62,6 @@ class NavBar extends Component {
 			pathname: '/search',
 			state: { destination }
 		})
-		// this.props.history.push('/search');
-		// this.setState({ redirect: true });
 	}
 	onChange(event) {
 		let value = event.target.value;
@@ -99,7 +96,7 @@ class NavBar extends Component {
 					<div style={{ fontWeight: "100", display: "inline", paddingLeft: "inherit" }}>{x.info}</div>
 				</div>
 			});
-			// console.log('list = ' + this.state.suggestions + this.state.show_suggestion);
+
 			let left = '' + this.state.suggestion_position.left + 'px';
 			let top = '' + this.state.suggestion_position.top + 'px';
 			suggestion_list = <div style={{ backgroundColor: "white", position: 'absolute', left: left, top: top }}>
@@ -124,17 +121,17 @@ class NavBar extends Component {
 					</Nav>
 					<Form inline className='mr-auto' style={{ minWidth: '50%' }} id='basic-nav-dropdown' onSubmit={this.handleSubmit}>
 						<FormControl type="text" placeholder="Search" className="col-10" value={this.state.inputValue} onChange={this.onChange} style={{ borderTopRightRadius: "0px", borderBottomRightRadius: "0px" }} />
-						<Button className='col-2' type="submit" style={{ borderTopLeftRadius: "0px", borderBottomLeftRadius: "0px" }}>search</Button>
+						<Button className='col-2' type="submit" style={{ borderTopLeftRadius: "0px", borderBottomLeftRadius: "0px" }}>Search</Button>
 					</Form>
 					{suggestion_list}{/* div tag with list*/}
 					<Nav className="mr-auto">
 						{
 
-							this.state.userAuth ? <Button onClick={this.logout} className='primary'>log out</Button> : <Link to='/login'>
-								<Button variant="primary" className="">log in</Button>
+							this.state.userAuth ? <Button onClick={this.logout} className='primary'>Logout</Button> : <Link to='/login'>
+								<Button variant="primary" className="">Login</Button>
 							</Link>
 						}
-						<Button variant="primary" className="">bookings</Button>
+						<Button variant="primary" className="">Bookings</Button>
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>

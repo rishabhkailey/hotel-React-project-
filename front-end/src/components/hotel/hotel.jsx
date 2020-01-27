@@ -8,7 +8,9 @@ class Hotel extends Component {
         super(props);
         this.state = {
             id: this.props.match.params.id,
-            hotel: this.props.location.state.hotel
+            hotel: this.props.location.state.hotel,
+            booked: false,
+            wishlist: false
         }
         this.wishList = this.wishList.bind(this)
         this.bookHotel = this.bookHotel.bind(this)
@@ -26,6 +28,9 @@ class Hotel extends Component {
                 if (!response.ok) throw new Error(response.status);
                 else return response.json();
             })
+            .then((res)=>{
+                this.setState({wishlist: true})
+            })
             .catch((err)=>{console.log(err)})
     }
 
@@ -41,6 +46,9 @@ class Hotel extends Component {
                 if (!response.ok) throw new Error(response.status);
                 else return response.json();
             })
+            .then((res)=>{
+                this.setState({booked: true})
+            })
             .catch((err)=>{console.log(err)})
     }
     render() {
@@ -50,6 +58,7 @@ class Hotel extends Component {
         // console.log(this.props);
         let { hotel } = this.state;
         console.log(this.props.location.state.hotel);
+        
         return <div className='container-fluid' >
             <div className='row' >
                 <div className='col-sm-6' >
@@ -57,12 +66,12 @@ class Hotel extends Component {
                     <div className='row'>
                         <div className='col-6'>
                             <button style={{ width: "80%", marginLeft: '10%', fontSize: '24px', fontWeight: '400' }} className='btn btn-primary'>
-                                book
+                                {this.state.booked ? 'booked':'book'}
                             </button>
                         </div>
                         <div className='col-6'>
                             <button onClick={this.wishList} style={{ width: "80%", marginLeft: '10%', fontSize: '24px', fontWeight: '400' }} className='btn btn-primary'>
-                                whishlist
+                                {this.state.wishlist ? 'wishlisted':'whishlist'}
                             </button>
                         </div>
                     </div>

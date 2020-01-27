@@ -24,25 +24,10 @@ class List extends Component {
     disableShowList() {
         this.setState({ show_list: false })
     }
-    /*this method is now unsafe_componentWillRecieveProps , and in next update it will be removed so use getDerivedStateFromProps
-     componentWillReceiveProps(new_props) // during update component life cycle =  componentWillReceiveProps -> shouldComponentUpdate ->(if true from scu) componentWillUpdate -> render -> componentDidUpdate
-     {
-         if(this.page_loaded){
-             this.loadHotels();
-         }
-     }
-     */
-
-    // static method so this keyword cannot be used so props and state are send as arguments
-    // and to setState return new state obj , or null if don't want to update state 
-
+    
     static getDerivedStateFromProps(props, state) {
-        // eh har var chalda after constructor and without constructor when new props arrives(update) 
-        // not after setState
-
+    
         const dest = props.location.state.destination[0];
-        //if state.dest is null means first time then update state
-        // or if new props.dest_id is different then current state
         if ((state.dest === null) || (state.dest.dest_id !== dest.dest_id)) {
             console.log('rerender');
             return {
@@ -57,8 +42,7 @@ class List extends Component {
         console.log(`component update lalala , need update = ${this.state.needUpdate}`);
         if (this.state.needUpdate) {
             this.setState({ needUpdate: false });
-            this.loadHotels();//fetch nal jo changes ho rhe ne oh detect nhi krda
-            //when we search and are already on /search
+            this.loadHotels();
         }
     }
     loadHotels(filters) {
@@ -75,20 +59,16 @@ class List extends Component {
                     this.setState({ show_list: true, hotels: list, loading: false });
                 }
             })
-        // this.setState({ show_list: true, hotels: [] });
-        // this.setState({ page_loaded: true });
     }
     componentDidMount() {
         console.log('inside componentdidmount');
         this.loadHotels();
-        //nhi thik a , eh sirf ik var hi chalda
     }
     render() {
         // let { path, url } = useRouteMatch();// path used in Route , url used in link(matched)
         // let path = '/search';
         // let url = '/search';
 
-        // let list;
         let { dest } = this.state;
         let list;
         if(this.state.show_list){

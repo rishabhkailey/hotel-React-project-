@@ -34,7 +34,7 @@ class Login extends Component {
     }
     validatePassword(event) {
         let pass = event.target.value;
-        if (pass.length <= 6) {
+        if (pass.length < 6) {
             this.setState({ isValidPassword: false, isInvalidPassword: true, pwdMsg: 'password should be of 6 or more characters' })
         }
     }
