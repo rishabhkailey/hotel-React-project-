@@ -21,6 +21,7 @@ router.post('/login',(req,res)=>{
                 if(bcrypt.compareSync(req.body.password,user.password))
                 {
                     req.session.email = user.email
+                    req.session.uname = user.uname
                     console.log(`cookie after authentication ${req.sessionID}`,req.session)
                     res.json({error: false,logIn: true,msg: 'user autheticated'})
                 }
@@ -63,6 +64,7 @@ router.post('/signup',(req,res)=>{
                 if(response){
                     console.log(response)
                     req.session.email = req.body.email
+                    req.session.uname = req.body.uname
                     console.log('account created')
                     res.json({error: false,signUp: true,msg: 'account created'})
                 }

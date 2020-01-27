@@ -17,30 +17,44 @@ class HotelDetails extends Component {
         this.onClick = this.onClick.bind(this);
     }
 
-    onClick(){
-        if(this.state.button === 'Read more')
-        {
-            this.setState({des_style:{},button:'Hide'})
+    onClick() {
+        if (this.state.button === 'Read more') {
+            this.setState({ des_style: {}, button: 'Hide' })
         }
-        else{
-            this.setState({des_style:{height:'200px',overflow:'hidden'},button:'Read more'})
+        else {
+            this.setState({ des_style: { height: '200px', overflow: 'hidden' }, button: 'Read more' })
         }
     }
 
     componentDidMount() {
-        getDescription(this.props.hotel.id)
-            .then((res) => { this.setState({ des: res }) })
+        console.log({ hotel_id: this.props.hotel.hotel_id })
+        fetch('http://localhost:5000/hotel/getHotelDescription', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ hotel_id: this.props.hotel.hotel_id })
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                }
+            })
+            .then((res) => {
+                console.log(res)
+                this.setState({des: res.desc})
+            })
     }
     render() {
         let { hotel } = this.props;
         return <React.Fragment>
-            <h3 > {hotel.name} </h3>
-            <h5 > {hotel.city + ',' + hotel.country} </h5>
+            <h3 > {hotel.hotel_name} </h3>
+            <h5 > {hotel.city + ',' + hotel.country_trans} </h5>
 
 
             <div className='row pricing' style={{ padding: '8px', marginTop: '25px' }}>
                 <div className='price' style={{ fontSize: '2em', fontWeight: '500' }}>
-                    {getSymbolFromCurrency(hotel.currency_code)}{hotel.price}
+                    {getSymbolFromCurrency(hotel.currency_code)}{hotel.min_total_price}
                     /week
                 </div>
 

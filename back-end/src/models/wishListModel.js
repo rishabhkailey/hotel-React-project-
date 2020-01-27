@@ -6,43 +6,35 @@ const wishlistSchema = new mongoose.Schema({
         require: true,
         unique: true
     },
-    wishlist: []
+    hotel_id: {
+        type: Number,
+        required: true
+    }
 })
 
 const wishlistModel = mongoose.model('wishlist',wishlistSchema);
 
-wishlistModel.add = (req,callback)=> {
-    let email = req.session.email
 
-    wishlistModel.getWishList(req,(err,res)=>{
-        if(res){
-            let list = res[0].wishlist
-            list.push(req.body)
-            wishlistModel.findOneAndUpdate({email},{$set:{wishlist:list}},callback)
-        }
-        if(err){
-            console.log(err)
-        }
-    })
+wishlistModel.wishlistHotel = (req,callback)=> {
+    let query = {email: req.session.email,hotel_id: req.body.hotel_id}
+    wishlistModel.create(query,callback)
 }
 
-wishlistModel.createWishList = (req,callback)=>{
 
-    let email = req.session.email
-    let obj = {
-        email,
-        wishlist: [req.body]
-    } 
-    console.log(obj)
-
-    wishlistModel.create(obj,callback)
-}
-
-wishlistModel.getWishList = (req,callback)=>{
-
+wishlistModel.getWishlist = (req,callback)=>{
     let email = req.session.email; 
-
     wishlistModel.find({email},callback)
+}
+
+wishlistModel.deleteFromWishlist = (req,callback)=>{
+    let query = {email: req.session.email,hotel_id: req.body.hotel_id}
+    wishlistModel.findOneAndDelete(query,callback)
+}
+
+wishlistModel.checkWishlist = (req,callback)=>{
+    query = {email: req.session.email,hotel_id: req.body.hotel_id}
+    console.log('query = ',query)
+    wishlistModel.find(query,callback)
 }
 
 module.exports = wishlistModel;

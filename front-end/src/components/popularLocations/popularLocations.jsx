@@ -16,17 +16,10 @@ class PopularLocations extends Component {
     }
     onClick(obj) {
         console.log('on click on pl')
-        // this.props.history.push('/search');
-        // let bbox = [obj];
-        // for (let x in obj) {
-        // 	console.log(x);
-        // }
         this.props.history.push({
             pathname: '/search',
-            state: { destination: [obj] }
+            state: { dest_id: obj.dest_id , search: obj.name}
         })
-        // this.props.bbox(bbox, 'exact');
-        // this.setState({ redirectSearch: true });
     }
     componentDidMount() {
 

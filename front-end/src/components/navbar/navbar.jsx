@@ -33,23 +33,18 @@ class NavBar extends Component {
 				if (!response.ok) throw new Error(response.status);
 				else return response.json();
 			})
-			.then((res)=>{
+			.then((res) => {
 				this.props.logout()
 				this.setState({ userAuth: false })
 			})
-		}
+	}
 	handleSubmit(event) {
 		event.preventDefault();
-		console.log('submit');
-		// this.props.history.push('/search');
-		getSuggestions(this.state.inputValue)
-			.then((destination) => {
-				// console.log(destination)
-				this.props.history.push({
-					pathname: '/search',
-					state: { destination }
-				})
-			})
+		// console.log('submit');
+		this.props.history.push({
+			pathname: '/search',
+			state: { dest_id: null,search:this.state.inputValue }
+		})
 	}
 	onClick(obj) {
 		this.props.history.push('/search');
@@ -88,21 +83,21 @@ class NavBar extends Component {
 
 
 	render() {
-		let suggestion_list;
-		if (this.state.show_suggestion) {
-			let list = this.state.suggestions.map((x, index) => {
-				return <div className='form-control col-12 suggestion' style={{ display: 'block' }} key={index} onClick={() => { this.onClick(x) }}>
-					<div style={{ fontWeight: "bold", display: "inline" }}>{x.name}</div>
-					<div style={{ fontWeight: "100", display: "inline", paddingLeft: "inherit" }}>{x.info}</div>
-				</div>
-			});
+		// let suggestion_list;
+		// if (this.state.show_suggestion) {
+		// 	let list = this.state.suggestions.map((x, index) => {
+		// 		return <div className='form-control col-12 suggestion' style={{ display: 'block' }} key={index} onClick={() => { this.onClick(x) }}>
+		// 			<div style={{ fontWeight: "bold", display: "inline" }}>{x.name}</div>
+		// 			<div style={{ fontWeight: "100", display: "inline", paddingLeft: "inherit" }}>{x.info}</div>
+		// 		</div>
+		// 	});
 
-			let left = '' + this.state.suggestion_position.left + 'px';
-			let top = '' + this.state.suggestion_position.top + 'px';
-			suggestion_list = <div style={{ backgroundColor: "white", position: 'absolute', left: left, top: top }}>
-				{list}
-			</div>
-		}
+		// 	let left = '' + this.state.suggestion_position.left + 'px';
+		// 	let top = '' + this.state.suggestion_position.top + 'px';
+		// 	suggestion_list = <div style={{ backgroundColor: "white", position: 'absolute', left: left, top: top }}>
+		// 		{list}
+		// 	</div>
+		// }
 		return <React.Fragment>
 			<Navbar bg="primary" expand="lg" className="navbar-dark">
 				<Link to='/'><Navbar.Brand>Hotels</Navbar.Brand></Link>{/*.Brand for site logo or name*/}
@@ -123,7 +118,7 @@ class NavBar extends Component {
 						<FormControl type="text" placeholder="Search" className="col-10" value={this.state.inputValue} onChange={this.onChange} style={{ borderTopRightRadius: "0px", borderBottomRightRadius: "0px" }} />
 						<Button className='col-2' type="submit" style={{ borderTopLeftRadius: "0px", borderBottomLeftRadius: "0px" }}>Search</Button>
 					</Form>
-					{suggestion_list}{/* div tag with list*/}
+					{/* {suggestion_list}div tag with list */}
 					<Nav className="mr-auto">
 						{
 

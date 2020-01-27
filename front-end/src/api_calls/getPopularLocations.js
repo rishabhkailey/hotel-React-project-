@@ -8,7 +8,7 @@ const getPopularLocations = async() => { // async bec we will be     fetch this 
             photo: 'https://images.unsplash.com/photo-1515163988842-60ece4c9a5bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'
         },
         {
-            name: 'NY',
+            name: 'new york',
             dest_id: "20088325",
             dest_type: 'city',
             latitude: 40.768074,
@@ -16,7 +16,7 @@ const getPopularLocations = async() => { // async bec we will be     fetch this 
             photo: 'https://cdn.getyourguide.com/img/tour_img-1667715-146.jpg'
         },
         {
-            name: 'Rome',
+            name: 'rome',
             dest_id: "-126693",
             dest_type: 'city',
             latitude: 41.89587,
@@ -24,7 +24,7 @@ const getPopularLocations = async() => { // async bec we will be     fetch this 
             photo: 'https://www.thoughtco.com/thmb/GS4AiVqpE78EVPlhV8tJgRThEr0=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/the-roman-coliseum-in-the-early-morning-655490208-5abd1d0f119fa80037ef98b9.jpg'
         },
         {
-            name: 'Dubai',
+            name: 'dubai',
             dest_id: "-782831",
             dest_type: 'city',
             latitude: 25.195175,

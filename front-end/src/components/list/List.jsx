@@ -19,20 +19,20 @@ class simpleList extends Component {
         if (this.state.show_list) {
             list = this.state.hotels.map((x, index) => {
                 return <Link to={{
-                    pathname: `search/hotel/${x.id}`,
+                    pathname: `search/hotel/${x.hotel_id}`,
                     state: {
                         hotel: x
                     }
                 }} style={{ textDecoration: 'none' }} className="row hotelLink" key={index}>
                     <div className="col-3" style={{ paddingTop: "25%", overflow: "hidden" }}>
-                        <img style={{ position: "absolute", top: "0px", left: "0px", width: "100%", height: "100%", objectFit: "cover" }} src={x.image} />
+                        <img style={{ position: "absolute", top: "0px", left: "0px", width: "100%", height: "100%", objectFit: "cover" }} src={x.photo_url} />
                     </div>
                     <div className="col-8" style={{ paddingLeft: "30px" }}>
                         <div className="row hotelHeading" style={{ fontSize: '2.2vw', fontWeight: '600' }}>
-                            {x.name}
+                            {x.hotel_name}
                         </div>
                         <div className="row" style={{ fontSize: "1.5vw", fontWeight: "" }}>
-                            {x.address + "," + x.city + "," + x.country}
+                            {x.address + "," + x.city + "," + x.country_trans}
                         </div>
                         <div className="col-lg-6 rating" style={{ paddingTop: '9px', paddingLeft: '0px' }}>
                             <div className='row'>
@@ -52,7 +52,7 @@ class simpleList extends Component {
                         </div>
                         <div className='row pricing' style={{ fontSize: '1.4vw', paddingTop: '8px' }}>
                             <div className='price' style={{ fontSize: '1.4vw', fontWeight: '500' }}>
-                                {getSymbolFromCurrency(x.currency_code)}{x.price}
+                                {getSymbolFromCurrency(x.currency_code)}{x.min_total_price}
                             </div>
                             /week
                         </div>

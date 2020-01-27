@@ -4,7 +4,8 @@ const {username , password} = require('./config/mongoUser');
 
 mongoose.connect(`mongodb+srv://${username}:${password}@uca-qs5g6.mongodb.net/test?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 })
 
 var db = mongoose.connection;

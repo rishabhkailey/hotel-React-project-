@@ -1,99 +1,159 @@
 const express = require('express')
 const router = express.Router()
-let wishListModel = require('./../models/wishListModel')
+
+let wishlistModel = require('./../models/wishListModel')
 let bookingModel = require('./../models/bookingListModel')
+let reviewModel = require('./../models/hotelReviewModel')
+
+
 router.get('/',(req,res)=>{
     res.send('welcome')
 })
 
-router.post('/getWishList',(req,res)=>{
-    wishListModel.getWishList(req,(err,response)=>{
-        if(response){
-            res.send(response[0].wishlist)
-        }
-        if(err){
-            console.log(err)
-        }
-    })
-})
-
-router.post('/addWishlist',(req,res)=>{
-    wishListModel.getWishList(req,(err,response)=>{
-        if(err){
-            console.log(err)
-        }
-        console.log(response)
-        if(response && response.length === 0){
-            console.log('create')
-            wishListModel.createWishList(req,(err,response)=>{
-                if(err){
-                    console.log(err)
-                    res.json({error: true,msg: 'failed'})
-                }
-                if(response){
-                    console.log(res)
-                    res.json({error: false,msg: 'done'})
-                }
-            })
-        }
-        if(response && response.length !== 0){
-            wishListModel.add(req,(err,response)=>{
-                if(err){
-                    console.log(err)
-                    res.json({error: true,msg: 'failed'})
-                }
-                if(response){
-                    console.log(res)
-                    res.json({error: false,msg: 'done'})
-                }
-            })
-        }
-    })
-})
 
 router.post('/getBookings',(req,res)=>{
     bookingModel.getBookings(req,(err,response)=>{
         if(response){
-            res.send(response[0].bookings)
+            res.send({error: false , bookings: response})
         }
         if(err){
+            res.send({error: true, message: 'server error'})
             console.log(err)
         }
     })
 })
 
 router.post('/bookHotel',(req,res)=>{
-    bookingModel.getBookings(req,(err,response)=>{
+    bookingModel.addBooking(req,(error,response)=>{
+        if(error){
+            console.log(error)
+            res.send({error: true,booked:false,message: 'server error'})
+        }
+        if(response){
+            console.log(response)
+            res.send({error:false,message: 'booked',booked: true})
+        }
+    })
+})
+
+router.post('/deleteBooking',(req,res)=>{
+    bookingModel.deleteBooking(req,(error,response)=>{
+        console.log(error,response)
+        if(error){
+            console.log(error)
+            res.send({error: true,message: 'server error'})
+        }
+        if(response){
+            console.log(response)
+            res.send({error: false,message: 'removed',booked: false})
+        }
+    })
+})
+
+router.post('/isBooked',(req,res)=>{
+    bookingModel.checkBooking(req,(error,response)=>{
+        if(error){
+            console.log(error)
+            res.send({error: true,message: 'server error'})
+        }
+        if(response && response.length > 0){
+            console.log(response)
+            res.send({error: false,booked: true})
+        }
+        if(response && response.length == 0){
+            console.log(response)
+            res.send({error: false,booked: false})
+        }
+    })
+})
+
+
+router.post('/getWishlist',(req,res)=>{
+    wishlistModel.getWishlist(req,(err,response)=>{
+        if(response){
+            res.send({error: false , wishlist: response})
+        }
         if(err){
+            res.send({error: true, message: 'server error'})
             console.log(err)
         }
-        console.log(response)
-        if(response && response.length === 0){
-            console.log('create')
-            bookingModel.createBooking(req,(err,response)=>{
-                if(err){
-                    console.log(err)
-                    res.json({error: true,msg: 'failed'})
+    })
+})
+
+router.post('/wishlistHotel',(req,res)=>{
+    wishlistModel.wishlistHotel(req,(error,response)=>{
+        if(error){
+            console.log(error)
+            res.send({error: true,booked:false,message: 'server error'})
+        }
+        if(response){
+            console.log(response)
+            res.send({error:false,message: 'wishlisted',wishlisted: true})
+        }
+    })
+})
+
+router.post('/deleteFromWishlist',(req,res)=>{
+    wishlistModel.deleteFromWishlist(req,(error,response)=>{
+        console.log(error,response)
+        if(error){
+            console.log(error)
+            res.send({error: true,message: 'server error'})
+        }
+        if(response){
+            console.log(response)
+            res.send({error: false,message: 'removed',wishlisted: false})
+        }
+    })
+})
+
+router.post('/isWishlist',(req,res)=>{
+    wishlistModel.checkWishlist(req,(error,response)=>{
+        if(error){
+            console.log(error)
+            res.send({error: true,message: 'server error'})
+        }
+        if(response && response.length > 0){
+            console.log(response)
+            res.send({error: false,wishlisted: true})
+        }
+        if(response && response.length == 0){
+            console.log(response)
+            res.send({error: false,wishlisted: false})
+        }
+    })
+})
+
+
+router.post('/addReview',(req,res)=>{
+    reviewModel.findUserReview(req,(error,response)=>{
+        // console.log(response.length)
+        if(response && response.length == 0){
+            reviewModel.addReview(req,(e,r)=>{
+                if(e){
+                    res.send({error: true,message: 'server error'})
                 }
-                if(response){
-                    console.log(res)
-                    res.json({error: false,msg: 'done'})
+                if(r){
+                    console.log(r)
+                    res.send({error: false,message: 'review added'})
                 }
             })
         }
-        if(response && response.length !== 0){
-            bookingModel.add(req,(err,response)=>{
-                if(err){
-                    console.log(err)
-                    res.json({error: true,msg: 'failed'})
+        if(response && response.length > 0){
+            reviewModel.updateReview(req,(e,r)=>{
+                console.log(e,r)
+                if(e){
+                    console.log(e)
+                    res.send({error: true,message: 'server error'})
                 }
-                if(response){
-                    console.log(res)
-                    res.json({error: false,msg: 'done'})
+                if(r){
+                    console.log(r)
+                    res.send({error: false,message: 'review updated'})
                 }
             })
         }
     })
 })
+
 
 module.exports = router

@@ -7,7 +7,7 @@ class Hotel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.match.params.id,
+            hotel_id: this.props.match.params.id,
             hotel: this.props.location.state.hotel,
             booked: false,
             wishlist: false
@@ -56,13 +56,13 @@ class Hotel extends Component {
         //     console.log(this.props.match.params.id);
         // console.log('inside room');
         // console.log(this.props);
-        let { hotel } = this.state;
+        let { hotel } = this.state; 
         console.log(this.props.location.state.hotel);
         
         return <div className='container-fluid' >
             <div className='row' >
                 <div className='col-sm-6' >
-                    <HotelImages id={this.state.id} />
+                    <HotelImages id={this.state.hotel_id} />
                     <div className='row'>
                         <div className='col-6'>
                             <button style={{ width: "80%", marginLeft: '10%', fontSize: '24px', fontWeight: '400' }} className='btn btn-primary'>
@@ -78,7 +78,7 @@ class Hotel extends Component {
                 </div>
                 <div className='col-sm-6' >
                     <HotelDetails hotel={hotel} />
-                    <HotelReviews hotel={hotel.id} />
+                    <HotelReviews hotel={hotel.hotel_id} />
                 </div>
             </div>
         </div>
