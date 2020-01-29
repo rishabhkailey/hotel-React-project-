@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import SearchFilter from '../searchFilter/searchFilter';
 import SimpleList from '../list/List'
-import getRooms from '../../api_calls/getRooms';
 import './search.css'
 
 class List extends Component {
@@ -14,7 +13,7 @@ class List extends Component {
             dest_id,
             search,
             minPrice: 0,
-            maxPrice: 1000
+            maxPrice: 10000
         }
         this.disableShowList = this.disableShowList.bind(this);
         this.loadHotels = this.loadHotels.bind(this);
@@ -52,13 +51,13 @@ class List extends Component {
         console.log(this.state)
 
         let { search } = this.state
-
+        
         fetch('http://localhost:5000/hotel/searchHotels', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({name: search})
+            body: JSON.stringify({name: search,filters})
         })
         .then((response) => {
             if (!response.ok) throw new Error(response.status);
@@ -80,6 +79,7 @@ class List extends Component {
 
         let { search } = this.state;
         let list;
+
         if (this.state.show_list) {
             if(this.state.hotels.length == 0)
                 list = <h2>No results found!!</h2>

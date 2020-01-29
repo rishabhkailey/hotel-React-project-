@@ -7,6 +7,9 @@ mongoose.connect(`mongodb+srv://${username}:${password}@uca-qs5g6.mongodb.net/te
     useUnifiedTopology: true,
     useFindAndModify: false
 })
+.catch((err)=>{
+    console.log(err)
+})
 
 var db = mongoose.connection;
 db.on('error', function () {

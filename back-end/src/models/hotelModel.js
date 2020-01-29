@@ -35,8 +35,31 @@ hotelModel.addHotel = (req,callback)=>{
 
 hotelModel.findHotelByDestinationId = (req,callback)=>{
     // called after find dest no need to use .body
-    // console.log(req)
-    hotelModel.find({dest_id: req.dest_id},callback)
+    console.log(req)
+
+    if(!req.filters)
+        hotelModel.find({dest_id: req.dest_id},callback)
+    else
+    {
+        let {minPrice,maxPrice,order} = req.filters
+        
+        let sort_query = {}
+
+        if(order === 'ratinglth')
+            sort_query.review_score = 1
+        else if(order === 'ratinghtl')
+            sort_query.review_score = -1
+        else if(order === 'pricelth')
+            sort_query.min_total_price = 1
+        else if(order === 'pricehtl')
+            sort_query.min_total_price = -1
+        
+        console.log(sort_query)
+        
+        hotelModel.find({dest_id: req.dest_id,min_total_price : {$gte: minPrice,$lte: maxPrice}},callback).sort(sort_query)
+
+    }    
+    
 }
 
 module.exports = hotelModel;

@@ -10,7 +10,7 @@ class SearchFilter extends Component {
             minSelectPrice: this.props.minPrice,
             maxSelectPrice: this.props.maxPrice,
             classSelect: 0,
-            orderSelect: 'order by',
+            order: 'default',
             filterStyle: {}
         }
         this.minPriceChange = this.minPriceChange.bind(this);
@@ -65,8 +65,8 @@ class SearchFilter extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const { minSelectPrice, maxSelectPrice, classSelect, orderSelect } = this.state
-        const filter = { minPrice: minSelectPrice, maxPrice: maxSelectPrice, classSelect, orderSelect }
+        const { minSelectPrice, maxSelectPrice, classSelect, order } = this.state
+        const filter = { minPrice: minSelectPrice, maxPrice: maxSelectPrice, classSelect, order }
         console.log(filter);
 
         this.props.loadHotels(filter);
@@ -90,7 +90,7 @@ class SearchFilter extends Component {
                         <input type='text' className='col-10 form-control' value={this.state.maxSelectPrice} placeholder='max price' onChange={this.maxPriceChange} />
                     </div>
 
-                    <div className='classFilter' style={{ paddingTop: '2em' }} className='row'>
+                    {/* <div className='classFilter' style={{ paddingTop: '2em' }} className='row'>
                         <select value={this.state.class} className="custom-select" onChange={this.classChange}>
                             <option value="0">Select Class</option>
                             <option value="1">class 1 and above</option>
@@ -99,16 +99,19 @@ class SearchFilter extends Component {
                             <option value="3">class 4 and above</option>
                             <option value="3">class 5 and above</option>
                         </select>
-                    </div>
+                    </div> */}
 
                     <div className='orderFilter' style={{ paddingTop: '2em' }} className='row'>
                         <select value={this.state.order} className="custom-select" onChange={this.orderChange}>
-                            <option value='order by'>Order by</option>
-                            <option value="popularity">popularity</option>
-                            <option value="rating">rating</option>
-                            <option value="distance">distance</option>
-                            <option value="class_ascending">class ascending</option>
-                            <option value="class_descending">class descending</option>
+                            <option value='default'>Order by</option>
+                            {/* <option value="popularity">popularity</option> */}
+                            <option value="ratinglth">rating low to high</option>
+                            <option value="ratinghtl">rating high to low</option>
+                            <option value="pricelth">price low to high</option>
+                            <option value="pricehtl">price high to low</option>
+                            {/* <option value="distance">distance</option> */}
+                            {/* <option value="class_ascending">class ascending</option> */}
+                            {/* <option value="class_descending">class descending</option> */}
                         </select>
                     </div>
 

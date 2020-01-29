@@ -65,10 +65,10 @@ class App extends Component {
             <BrowserRouter>
                 <Route component = {props => <NavBar logout={this.logout} userAuth={this.state.userAuth} {...props}/> } /> {/*bbox={this.getBboxList} */}
                 <Switch>
-                
-                    <Route exact path='/wishlist'  component={() => <BookingsWishlist type='WishList' auth={this.state.auth} />} />
+
+                    <Route path='/wishlist'  component={() => <BookingsWishlist type='WishList' auth={this.state.auth} />} />
                     
-                    <Route exact path='/bookings'  component={() => <BookingsWishlist type='Bookings' auth={this.state.auth} />} />
+                    <Route path='/bookings'  component={() => <BookingsWishlist type='Bookings' auth={this.state.auth} />} />
                     
                     <Route exact path='/search' component={Search} />
 

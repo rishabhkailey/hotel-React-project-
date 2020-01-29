@@ -17,7 +17,7 @@ const getPopularLocations = async() => { // async bec we will be     fetch this 
         },
         {
             name: 'rome',
-            dest_id: "-126693",
+            dest_id: "-126693", 
             dest_type: 'city',
             latitude: 41.89587,
             longitude: 12.482617,

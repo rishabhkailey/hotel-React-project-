@@ -72,6 +72,7 @@ router.post('/getHotelDescription',(req,res)=>{
 })
 
 router.post('/searchHotels',(req,res)=>{
+    console.log(req.body)
     destModel.findDest(req,(error,response)=>{
         if(error){
             console.log(error);
@@ -81,7 +82,9 @@ router.post('/searchHotels',(req,res)=>{
             res.send({hotels: [],error: false,message: 'no destination found'})
         }
         if(response && response.length > 0){
-            hotelModel.findHotelByDestinationId(response[0],(e,r)=>{
+            let {dest_id} = response[0]
+            let filters = req.body.filters
+            hotelModel.findHotelByDestinationId({dest_id , filters},(e,r)=>{
                 if(e){
                     console.log(e)
                     res.send({error: true,message: 'server error'})
