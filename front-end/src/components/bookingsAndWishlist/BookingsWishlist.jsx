@@ -9,21 +9,36 @@ class bookingWishlist extends Component {
             hotels: []
         }
     }
+
+    showError(message) {
+        
+    }
+
     componentDidMount() {
         // console.log(`http://localhost:5000/protected/get${this.props.type}`)
-        // fetch(`http://localhost:5000/protected/get${this.props.type}`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // })
-        //     .then((response) => {
-        //         if (!response.ok) throw new Error(response.status);
-        //         else return response.json();
-        //     })
-        //     .then((res)=>{
-        //         this.setState({show_list: true,hotels: res})
-        //     })
+        fetch(`http://localhost:5000/protected/get${this.props.type}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                if (!response.ok) throw new Error(response.status);
+                else return response.json();
+            })
+            .then((res)=>{
+                console.log(res);
+                if(res.error) {
+                    // showError(res.message)
+                }
+                else{
+                    if(res.loginRequired) {
+                        this.props.history.push('/login')
+                    }
+                    else
+                        this.setState({show_list: true,hotels: res.hotels})
+                }
+            })
     }
     render() {
         let list;

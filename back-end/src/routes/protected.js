@@ -4,7 +4,7 @@ const router = express.Router()
 let wishlistModel = require('./../models/wishListModel')
 let bookingModel = require('./../models/bookingListModel')
 let reviewModel = require('./../models/hotelReviewModel')
-
+let hotelModel = require('./../models/hotelModel')
 
 router.get('/',(req,res)=>{
     res.send('welcome')
@@ -14,7 +14,19 @@ router.get('/',(req,res)=>{
 router.post('/getBookings',(req,res)=>{
     bookingModel.getBookings(req,(err,response)=>{
         if(response){
-            res.send({error: false , bookings: response})
+            hotelModel.find({hotel_id: {$in : response.map((x)=>{
+                        return{hotel_id: x.hotel_id 
+                    } 
+                })}
+            },(e,r)=>{
+                if(r) {
+                    console.log(r)
+                    res.send({error: false , hotels: r})
+                }
+                if(e) {
+                    res.send({error: true, message: 'server error'})
+                }
+            })
         }
         if(err){
             res.send({error: true, message: 'server error'})
@@ -71,7 +83,7 @@ router.post('/isBooked',(req,res)=>{
 router.post('/getWishlist',(req,res)=>{
     wishlistModel.getWishlist(req,(err,response)=>{
         if(response){
-            res.send({error: false , wishlist: response})
+            res.send({error: false , hotels: response})
         }
         if(err){
             res.send({error: true, message: 'server error'})

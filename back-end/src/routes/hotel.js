@@ -7,6 +7,7 @@ let descModel = require('./../models/hotelDescriptionModel')
 let imageModel = require('./../models/hotelImagesModel')
 let reviewModel = require('./../models/hotelReviewModel')
 
+
 router.post('/checkUserReview',(req,res)=>{
     reviewModel.checkUserReview(req,(error,response)=>{
         if(error){

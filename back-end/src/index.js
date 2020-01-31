@@ -30,9 +30,9 @@ app.use("*", (req, res, next) => {
     next();
 })
 
+app.use("/", express.static('../front-end/build'))
+app.use("/home", express.static('../front-end/build'))
 
-app.use("/", express.static('static'))
-app.use("/home", express.static('static'))
 
 // check user is logged in or not
 const checkUser = (req,res,next)=>{
@@ -41,19 +41,19 @@ const checkUser = (req,res,next)=>{
         // chechk special method of user model to check the user from cookie 
         userModel.checkUser(req,(err,res)=>{
             if(err){
-                res.send('user not logged in')
+                res.send({error: true,message: 'server eroor'})
             }
             if(res && res.length > 0)
             {
                 next();
             }
             else{
-                res.send('user not logged in')
+                res.send({error: false,message: 'not authenticated',loginRequired: true})
             }
         })
     }
     else{
-        res.send('not logged in')
+        res.send({error: false,message: 'not authenticated',loginRequired: true})
     }
 }
 
