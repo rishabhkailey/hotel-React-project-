@@ -15,15 +15,15 @@ router.post('/getBookings',(req,res)=>{
     bookingModel.getBookings(req,(err,response)=>{
         if(response){
             hotelModel.find({hotel_id: {$in : response.map((x)=>{
-                        return{hotel_id: x.hotel_id 
-                    } 
-                })}
+                return x.hotel_id
+            }) }
             },(e,r)=>{
                 if(r) {
                     console.log(r)
                     res.send({error: false , hotels: r})
                 }
                 if(e) {
+                    console.log(e);
                     res.send({error: true, message: 'server error'})
                 }
             })
@@ -83,7 +83,22 @@ router.post('/isBooked',(req,res)=>{
 router.post('/getWishlist',(req,res)=>{
     wishlistModel.getWishlist(req,(err,response)=>{
         if(response){
-            res.send({error: false , hotels: response})
+            hotelModel.find({
+                hotel_id: {
+                    $in : response.map((x)=>{
+                        return x.hotel_id
+                    })
+                }
+            },(e,r)=>{
+                if(r) {
+                    console.log(r)
+                    res.send({error: false , hotels: r})
+                }
+                if(e) {
+                    console.log(e);
+                    res.send({error: true, message: 'server error'})
+                }
+            })
         }
         if(err){
             res.send({error: true, message: 'server error'})
