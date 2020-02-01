@@ -47,8 +47,10 @@ class bookingWishlist extends Component {
         }
         return <div>
             
-            <h1>{this.props.type}</h1>
+            <div className='col-7' style={{margin: 'auto'}}>   
+                <h1>{this.props.type}</h1> 
                 {list}
+            </div>
         </div>
     }
 }
