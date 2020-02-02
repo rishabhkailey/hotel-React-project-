@@ -124,7 +124,11 @@ class NavBar extends Component {
 					<Nav className="mr-auto">
 						{
 
-							this.state.userAuth ? <Button onClick={this.logout} className='primary'>Logout</Button> : <Link to='/login'>
+							this.state.userAuth ? <Button onClick={this.logout} className='primary'>Logout</Button> : <Link to={{
+								pathname: '/login',
+								state: {
+									redirectedFrom: ''
+								}}}>
 								<Button variant="primary" className="">Login</Button>
 							</Link>
 						}

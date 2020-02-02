@@ -158,7 +158,7 @@ class Hotel extends Component {
             </button>
         }
         else {
-            Book = <button onClick={this.cancelBooking} style={{ width: "80%", marginLeft: '10%', fontSize: '24px', fontWeight: '400' }} className='btn btn-primary'>
+            Book = <button onClick={this.cancelBooking} style={{ width: "80%", marginLeft: '10%', fontSize: '22px', fontWeight: '400' }} className='btn btn-primary'>
                 Cancel Booking
             </button>
         }
@@ -168,7 +168,7 @@ class Hotel extends Component {
                 </button>
         }
         else {
-            Wishlist = <button onClick={this.removeFromWishlist} style={{ width: "80%", marginLeft: '10%', fontSize: '24px', fontWeight: '400' }} className='btn btn-primary'>
+            Wishlist = <button onClick={this.removeFromWishlist} style={{ width: "80%", marginLeft: '10%', fontSize: '22px', fontWeight: '400' }} className='btn btn-primary'>
                 Remove from Wishlist
                 </button>
         }
