@@ -7,13 +7,27 @@ const session = require('express-session');
 const {key,secret} = require('./config/session')
 const userModel = require('./models/userModel')
 require('./dbConnection')
-
+const cors = require('cors') 
 const port = process.env.PORT || 5000;
 
 var app = express();
 
 // for development else new cookie will be generated every time (because browser doesn't send cookie if backend request is on different domain)
-// app.use(cors({ credentials: true, origin: true }))
+
+// const whiltelist = ['http://localhost:3000'];
+// const corsOption = {
+//     credentails: true,
+//     origin: function(origin, callback) {
+//         if(whiltelist.indexOf(origin) !== -1 || !origin) {
+//             callback(null, true);
+//         }
+//         else {
+//             callback(new Error('Not allowed By CORS'))
+//         }
+//     },credentials: true
+// }
+
+// app.use(cors(corsOption))
 
 app.use(bodyparser.json())
 

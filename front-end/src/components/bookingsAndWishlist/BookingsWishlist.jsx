@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import List from '../list/List'
-import { useLocation } from 'react-router-dom'
 
 class bookingWishlist extends Component {
     constructor(props) {
@@ -16,10 +15,7 @@ class bookingWishlist extends Component {
     }
     redirectToLogin() {
         this.props.history.push({
-            pathname: 'login',
-            state: {
-                redirectedFrom: `${this.props.type}`
-            }
+            pathname: 'login'
         })
     }
     componentDidMount() {

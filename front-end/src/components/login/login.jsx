@@ -20,8 +20,6 @@ class Login extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.validateEmail = this.validateEmail.bind(this);
         this.validatePassword = this.validatePassword.bind(this);
-
-        console.log(this.props)
     }
     validateEmail(event) {
         let mail = event.target.value;
@@ -51,36 +49,22 @@ class Login extends Component {
             },
             body: JSON.stringify(user)
         })
-            .then((response) => {
-                if (!response.ok) throw new Error(response.status);
-                else return response.json();
-            })
+            .then(res => {return res.json()})
             .then((data) => {
-                // console.log(`/${this.props.location.state.redirectedFrom}`)
-                let redirect = this.props.location.state.redirectedFrom
+                console.log('data from server',data)
                 if(data.logIn){
                     this.props.authenticate(data);
-                    this.props.history.push({
-                        pathname: `/${redirect}`
-                    })
+                    this.props.history.goBack()
+                    // this.props.history.push('/')
+                    console.log('go back')
                 }
                 else
                     this.setState({ logInStatus: data ,user: user})
+
             })
             .catch((error) => {
                 console.log('error: ' + error);
-                // this.setState({ requestFailed: true })
-            });
-        // .then((res) => {
-        //     alert(res);
-        //     fetch('http://localhost:5000/protected', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(user)
-        //     })
-        // })
+            })
     }
     render() {
         let { isValidEmail, isInvalidEmail, isValidPassword, isInvalidPassword } = this.state;

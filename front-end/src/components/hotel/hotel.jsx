@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import HotelImages from './../hotelImages/hotelImages'
 import HotelReviews from '../hotelReviews/hotelReviews';
 import HotelDetails from '../hotelDetails/hotelDetails';
+import loader from '../loader/loader';
 
 class Hotel extends Component {
     constructor(props) {
@@ -10,7 +11,9 @@ class Hotel extends Component {
             hotel_id: this.props.match.params.id,
             hotel: this.props.location.state.hotel,
             booked: false,
-            wishlist: false
+            wishlist: false,
+            wishlist_loading: true,
+            booking_loading: true
         }
         this.wishList = this.wishList.bind(this)
         this.bookHotel = this.bookHotel.bind(this)
@@ -36,7 +39,7 @@ class Hotel extends Component {
             })
             .then((res) => {
                 if (res)
-                    this.setState({ booked: res.booked })
+                    this.setState({ booked: res.booked , booking_loading: false})
             })
             .catch((err) => { console.log(err) })
     }
@@ -56,7 +59,7 @@ class Hotel extends Component {
             .then((res) => {
                 if (res){
                     console.log(res);
-                    this.setState({ wishlist: res.wishlisted })
+                    this.setState({ wishlist: res.wishlisted ,wishlist_loading: false})
                 }
             })
             .catch((err) => { console.log(err) })
@@ -79,7 +82,11 @@ class Hotel extends Component {
                 if (res)
                 {
                     console.log(res);
-                    this.setState({ wishlist: true })
+                    if(res.loginRequired) {
+                        this.props.history.push('/login')
+                    }
+                    else
+                        this.setState({ wishlist: true })
                 }
             })
             .catch((err) => { console.log(err) })
@@ -99,9 +106,13 @@ class Hotel extends Component {
             })
             .then((res) => {
                 console.log(res);
-                this.setState({ booked: res.booked })
+               
+                if(res.loginRequired) {
+                    this.props.history.push('/login')
+                }
+                else
+                    this.setState({ booked: res.booked })
             })
-            .catch((err) => { console.log(err) })
     }
     componentDidMount() {
 
@@ -119,7 +130,7 @@ class Hotel extends Component {
             })
             .then((res) => {
                 console.log(res);
-                this.setState({ booked: res.booked })
+                this.setState({ booked: res.booked ,booking_loading: false})
             })
             .catch((err) => { console.log(err) })
 
@@ -138,7 +149,7 @@ class Hotel extends Component {
             })
             .then((res) => {
                 console.log(res);
-                this.setState({ wishlist: res.wishlisted })
+                this.setState({ wishlist: res.wishlisted , wishlist_loading: false})
             })
             .catch((err) => { console.log(err) })
 
@@ -154,12 +165,12 @@ class Hotel extends Component {
         let Book, Wishlist
         if (!this.state.booked) {
             Book = <button onClick={this.bookHotel} style={{ width: "80%", marginLeft: '10%', fontSize: '24px', fontWeight: '400' }} className='btn btn-primary'>
-                Book
+                {this.state.booking_loading ? <loader /> : 'Book'}
             </button>
         }
         else {
             Book = <button onClick={this.cancelBooking} style={{ width: "80%", marginLeft: '10%', fontSize: '22px', fontWeight: '400' }} className='btn btn-primary'>
-                Cancel Booking
+                {this.state.booking_loading ? <loader /> : 'Cancel booking'}
             </button>
         }
         if (!this.state.wishlist) {

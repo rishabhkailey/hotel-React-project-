@@ -30,6 +30,7 @@
     font-size: 2em;
     top: 2%;
     left: 0px;
+    text-transform: capitalize;
 }
 
 .heading{
