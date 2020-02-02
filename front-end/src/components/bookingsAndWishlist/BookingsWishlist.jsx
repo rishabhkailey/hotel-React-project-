@@ -6,7 +6,7 @@ class bookingWishlist extends Component {
         super(props)
         this.state = {
             show_list: false,
-            hotels: []
+            hotels: null
         }
     }
 
@@ -42,8 +42,12 @@ class bookingWishlist extends Component {
     }
     render() {
         let list;
-        if(this.state.show_list){
+        if(this.state.show_list && this.state.hotels){
+            if(this.state.hotels.length > 0)
             list = <List show_list={this.state.show_list} hotels={this.state.hotels} />
+        }
+        else {
+            list = <h1>no results found</h1>
         }
         return <div>
             

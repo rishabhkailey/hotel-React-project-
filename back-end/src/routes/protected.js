@@ -82,6 +82,9 @@ router.post('/isBooked',(req,res)=>{
 
 router.post('/getWishlist',(req,res)=>{
     wishlistModel.getWishlist(req,(err,response)=>{
+        console.log(response,response.map((x)=>{
+            return x.hotel_id
+        }))
         if(response){
             hotelModel.find({
                 hotel_id: {
