@@ -31,7 +31,7 @@ class PopularLocations extends Component {
         if (this.state.show)
             loc_tag = this.state.locations.map((loc, index) => {
                 return <div key={index} className='col-3' style={{  paddingLeft: '3%', paddingRight: '3%' }} onClick={() => { this.onClick(loc) }}>
-                    <div className='card'>
+                    <div style={{cursor: 'pointer'}} className='card'>
                         <img className='image' src={loc.photo} />
                         <h1 className='label'>{loc.name}</h1>
                     </div>

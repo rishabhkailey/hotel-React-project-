@@ -56,11 +56,12 @@ class Login extends Component {
                 else return response.json();
             })
             .then((data) => {
-                console.log(data)
+                // console.log(`/${this.props.location.state.redirectedFrom}`)
+                let redirect = this.props.location.state.redirectedFrom
                 if(data.logIn){
                     this.props.authenticate(data);
                     this.props.history.push({
-                        pathname: '/'
+                        pathname: `/${redirect}`
                     })
                 }
                 else

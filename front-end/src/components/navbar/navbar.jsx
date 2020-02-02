@@ -107,11 +107,13 @@ class NavBar extends Component {
 						{/* <Nav.Link href="#home">Home</Nav.Link>  use brand as home*/}
 						{/* <Nav.Link href="#Top">Top</Nav.Link> */}
 						<NavDropdown title="Account" id="basic-nav-dropdown">
-							<NavDropdown.Item><Link to='/bookings'>bookings</Link></NavDropdown.Item>
-							{/* <NavDropdown.Item href="/account">account info</NavDropdown.Item> */}
-							{/* <NavDropdown.Item href="">log out</NavDropdown.Item> */}
+							<Link to='/Bookings'>
+								<center>Bookings</center>
+							</Link>
 							<NavDropdown.Divider />
-							<NavDropdown.Item><Link to='/wishlist'>wishlist</Link></NavDropdown.Item>
+							<Link to='/Wishlist'>
+								<center>wishlist</center>
+							</Link>
 						</NavDropdown>
 					</Nav>
 					<Form inline className='mr-auto' style={{ minWidth: '50%' }} id='basic-nav-dropdown' onSubmit={this.handleSubmit}>

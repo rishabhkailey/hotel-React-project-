@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import List from '../list/List'
+import { useLocation } from 'react-router-dom'
 
 class bookingWishlist extends Component {
     constructor(props) {
@@ -13,9 +14,16 @@ class bookingWishlist extends Component {
     showError(message) {
         
     }
-
+    redirectToLogin() {
+        this.props.history.push({
+            pathname: 'login',
+            state: {
+                redirectedFrom: `${this.props.type}`
+            }
+        })
+    }
     componentDidMount() {
-        // console.log(`http://localhost:5000/protected/get${this.props.type}`)
+        // console.log(useLocation())
         fetch(`http://localhost:5000/protected/get${this.props.type}`, {
             method: 'POST',
             headers: {
@@ -33,21 +41,27 @@ class bookingWishlist extends Component {
                 }
                 else{
                     if(res.loginRequired) {
-                        this.props.history.push('/login')
+                        this.redirectToLogin()
                     }
                     else
                         this.setState({show_list: true,hotels: res.hotels})
                 }
+            })
+            .catch((err)=>{
+                console.log(err)
             })
     }
     render() {
         let list;
         if(this.state.show_list && this.state.hotels){
             if(this.state.hotels.length > 0)
-            list = <List show_list={this.state.show_list} hotels={this.state.hotels} />
+                list = <List show_list={this.state.show_list} hotels={this.state.hotels} />
+            else {
+                list = <h1>no results found</h1>
+            }
         }
         else {
-            list = <h1>no results found</h1>
+            list = <h1>Loading...</h1>
         }
         return <div>
             
